@@ -39,16 +39,18 @@ public class ProductSizes {
     private String sizeUnit;
     private double newPrice;
     private double oldPrice;
+    private double stockNumber;
 
     public ProductSizes() {
     }
 
-    public ProductSizes(String productId, double sizeAmount, String sizeUnit, double newPrice, double oldPrice) {
+    public ProductSizes(String productId, double sizeAmount, String sizeUnit, double newPrice, double oldPrice, double stockNumber) {
         this.productId = productId;
         this.sizeAmount = sizeAmount;
         this.sizeUnit = sizeUnit;
         this.newPrice = newPrice;
         this.oldPrice = oldPrice;
+        this.stockNumber = stockNumber;
     }
 
     public String getId() {
@@ -113,5 +115,13 @@ public class ProductSizes {
 
     public void setOldPrice(double oldPrice) {
         this.oldPrice = oldPrice;
+    }
+
+    public double getStockNumber() {
+        return stockNumber;
+    }
+
+    public void setStockNumber(double stockNumber) {
+        this.stockNumber = stockNumber;
     }
 }

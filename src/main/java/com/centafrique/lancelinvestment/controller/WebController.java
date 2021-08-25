@@ -1,10 +1,20 @@
 package com.centafrique.lancelinvestment.controller;
 
+import com.centafrique.lancelinvestment.helper_class.DynamicFullRes;
+import com.centafrique.lancelinvestment.helper_class.ProductDetails;
+import com.centafrique.lancelinvestment.service_data.service_impl.ProductsServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
+
+import java.util.List;
 
 @Controller
 public class WebController {
+
+    @Autowired
+    private ProductsServiceImpl productsServiceImpl;
 
     @RequestMapping(value ="/")
     public String getHome(){
@@ -22,8 +32,23 @@ public class WebController {
     }
 
     @RequestMapping(value = "/shop")
-    public String getShop(){
-        return "/users/shop";
+    public ModelAndView getShop(){
+
+        int pageNo = 1;
+        int pageSize = 9;
+        String sortField = "createdAt";
+        String sortDescription = "DESC";
+
+        DynamicFullRes dynamicRes = productsServiceImpl.getPaginatedProducts(pageNo, pageSize, sortField, sortDescription);
+
+        List<ProductDetails> productDetailsList = dynamicRes.getResults();
+
+        ModelAndView modelAndView = new ModelAndView("/users/shop");
+        modelAndView.addObject("productDetailsList", productDetailsList);
+        modelAndView.addObject("pageNo", pageNo);
+        modelAndView.addObject("pageSize", pageSize);
+
+        return modelAndView;
     }
 
     @RequestMapping(value = "/shop-details")

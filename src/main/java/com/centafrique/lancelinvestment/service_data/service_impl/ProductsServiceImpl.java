@@ -3,6 +3,7 @@ package com.centafrique.lancelinvestment.service_data.service_impl;
 import com.centafrique.lancelinvestment.entity.ProductImages;
 import com.centafrique.lancelinvestment.entity.ProductSizes;
 import com.centafrique.lancelinvestment.entity.Products;
+import com.centafrique.lancelinvestment.helper_class.DynamicFullRes;
 import com.centafrique.lancelinvestment.helper_class.Formatter;
 import com.centafrique.lancelinvestment.helper_class.ProductDetails;
 import com.centafrique.lancelinvestment.repository.ProductImagesRepository;
@@ -94,8 +95,9 @@ public class ProductsServiceImpl implements ProductsService, ProductSizesInfo, P
 
         Products products = new Products(productName, productDescription, productIngredients);
 
-        Formatter formatter = new Formatter();
-        Products productsDataDetails = formatter.productDetails(productsRepository, products);
+//        Formatter formatter = new Formatter();
+//        Products productsDataDetails = formatter.productDetails(productsRepository, products);
+        Products productsDataDetails = addProduct(products);
         if (productsDataDetails != null){
 
             String productId = productsDataDetails.getId();
@@ -108,8 +110,9 @@ public class ProductsServiceImpl implements ProductsService, ProductSizesInfo, P
 
                 double newPrice = sizes.getNewPrice();
                 double oldPrice = sizes.getOldPrice();
+                double stockAmount = sizes.getStockNumber();
 
-                ProductSizes productSizes = new ProductSizes(productId, sizeAmount, sizeUnit, newPrice, oldPrice);
+                ProductSizes productSizes = new ProductSizes(productId, sizeAmount, sizeUnit, newPrice, oldPrice, stockAmount);
                 ProductSizes resProductSizes = addProductSizes(productSizes);
                 resProductSizesList.add(resProductSizes);
 
@@ -125,14 +128,13 @@ public class ProductsServiceImpl implements ProductsService, ProductSizesInfo, P
                 resProductImagesList.add(resProdImages);
             }
 
-            return new ProductDetails(productName, productDescription, productIngredients, resProductSizesList, resProductImagesList);
+            return new ProductDetails(productId,productName, productDescription, productIngredients, resProductSizesList, resProductImagesList);
 
         }else {
             return null;
         }
 
     }
-
 
     public List<Products> findPaginatedProducts(int pageNo, int pageSize, String sortField, String sortDirection){
 
@@ -151,4 +153,48 @@ public class ProductsServiceImpl implements ProductsService, ProductSizesInfo, P
 
     }
 
+    public DynamicFullRes getPaginatedProducts(int pageNo, int pageSize, String sortField, String sortDirection){
+
+        List<ProductDetails> productDetailsList = new ArrayList<>();
+
+        List<Products> productsList = getProductsList(pageNo, pageSize, sortField, sortDirection);
+        for (Products products : productsList){
+
+            String productName = products.getProductName();
+            String productDescription = products.getProductDescription();
+            String productIngredients = products.getIngredients();
+            String productId = products.getId();
+
+            List<ProductSizes> productSizesList = getProductSizes(productId);
+            List<ProductImages> productImagesList = getAllProductImages(productId);
+
+            ProductDetails productDetails = new ProductDetails(productId,productName, productDescription,productIngredients, productSizesList, productImagesList);
+            productDetailsList.add(productDetails);
+        }
+
+
+        return new DynamicFullRes(
+                productDetailsList.size(),
+                null,
+                null,
+                productDetailsList);
+
+    }
+
+    public ProductDetails getProductDetails(String productId){
+        Products products = getProduct(productId);
+        if (products != null){
+
+            String productName = products.getProductName();
+            String productDescription = products.getProductDescription();
+            String productIngredients = products.getIngredients();
+
+            List<ProductSizes> productSizesList = getProductSizes(productId);
+            List<ProductImages> productImagesList = getAllProductImages(productId);
+
+            return new ProductDetails(productId,productName, productDescription,productIngredients, productSizesList, productImagesList);
+        }else {
+            return null;
+        }
+    }
 }
