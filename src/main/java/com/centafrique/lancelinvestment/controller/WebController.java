@@ -20,4 +20,19 @@ public class WebController {
     public String getBlogDetails(){
         return "/users/blog_details";
     }
+
+    @RequestMapping(value = "/shop")
+    public String getShop(){
+        return "/users/shop";
+    }
+
+    @RequestMapping(value = "/shop-details")
+    public String getShopDetail(){
+        return "/users/shop_single";
+    }
+
+    @RequestMapping(value = "/gallery")
+    public String getGallery(){
+        return "/users/gallery";
+    }
 }

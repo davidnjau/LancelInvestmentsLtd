@@ -1,0 +1,343 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head>
+    <!--
+    /   Multipurpose: Free Template by FreeHTML5.co
+    /   Author: https://freehtml5.co
+    /   Facebook: https://facebook.com/fh5co
+    /   Twitter: https://twitter.com/fh5co
+    -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- Document title -->
+    <title>Lancel Investment Ltd</title>
+    <!-- Stylesheets & Fonts -->
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700,700i%7CRajdhani:400,600,700"
+        rel="stylesheet">
+    <!-- Plugins Stylesheets -->
+
+    <link rel="stylesheet" th:href="@{/assets/shop/assets/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/assets/shop/assets/css/templatemo.css}">
+    <link rel="stylesheet" th:href="@{/assets/shop/assets/css/custom.css}">
+
+    <!-- Load fonts style after rendering the layout styles -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;200;300;400;500;700;900&display=swap">
+    <link rel="stylesheet" th:href="@{/assets/shop/assets/css/fontawesome.min.css}">
+</head>
+
+<body>
+
+    <div data-th-include="/users/header.html"></div>
+
+    <!-- Featured End -->
+    <!-- Recent Posts Start -->
+    <section class="recent-posts">
+
+        <div>
+            <img style="min-height: 500px" class="img-fluid" src="assets/blog/assets/img/hero/about_hero.png" alt="Post 1">
+        </div>
+
+        <div class="container py-5">
+            <div class="row">
+
+                <div class="col-lg-3">
+                    <h1 class="h2 pb-4">Categories</h1>
+                    <ul class="list-unstyled templatemo-accordion">
+                        <li class="pb-3">
+                            <a class="collapsed d-flex justify-content-between h3 text-decoration-none" href="#">
+                                Bee-Hives
+                                <i class="fa fa-fw fa-chevron-circle-down mt-1"></i>
+                            </a>
+                            <ul class="collapse show list-unstyled pl-3">
+                                <li><a class="text-decoration-none" href="#">Bee Hives</a></li>
+                                <li><a class="text-decoration-none" href="#">Honey Products</a></li>
+                            </ul>
+                        </li>
+                        <li class="pb-3">
+                            <a class="collapsed d-flex justify-content-between h3 text-decoration-none" href="#">
+                                Honey
+                                <i class="pull-right fa fa-fw fa-chevron-circle-down mt-1"></i>
+                            </a>
+                            <ul id="collapseTwo" class="collapse list-unstyled pl-3">
+                                <li><a class="text-decoration-none" href="#">Raw</a></li>
+                                <li><a class="text-decoration-none" href="#">Processed</a></li>
+                            </ul>
+                        </li>
+
+                    </ul>
+                </div>
+
+                <div class="col-lg-9">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <ul class="list-inline shop-top-menu pb-3 pt-1">
+                                <li class="list-inline-item">
+                                    <a class="h3 text-dark text-decoration-none mr-3" href="#">All</a>
+                                </li>
+                                <li class="list-inline-item">
+                                    <a class="h3 text-dark text-decoration-none mr-3" href="#">Bee Hives's</a>
+                                </li>
+                                <li class="list-inline-item">
+                                    <a class="h3 text-dark text-decoration-none" href="#">Honey Products's</a>
+                                </li>
+                            </ul>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="card mb-4 product-wap rounded-0">
+                                <div class="card rounded-0">
+                                    <img class="card-img rounded-0 img-fluid" src="assets/img/shop_01.png">
+                                    <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
+                                        <ul class="list-unstyled">
+                                            <li><a class="btn btn-success text-white" href="/shop-details"><i class="far fa-heart"></i></a></li>
+                                            <li><a class="btn btn-success text-white mt-2" href="/shop-details"><i class="far fa-eye"></i></a></li>
+                                            <li><a class="btn btn-success text-white mt-2" href="/shop-details"><i class="fas fa-cart-plus"></i></a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <a href="/shop-details" class="h3 text-decoration-none">Bee Hive</a>
+                                    <ul class="w-100 list-unstyled d-flex justify-content-between mb-0">
+                                        <li>Size</li>
+
+                                    </ul>
+
+                                    <p class="text-center mb-0">Ksh250.00</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card mb-4 product-wap rounded-0">
+                                <div class="card rounded-0">
+                                    <img class="card-img rounded-0 img-fluid" src="assets/img/shop_02.png">
+                                    <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
+                                        <ul class="list-unstyled">
+                                            <li><a class="btn btn-success text-white" href="/shop-details"><i class="far fa-heart"></i></a></li>
+                                            <li><a class="btn btn-success text-white mt-2" href="/shop-details"><i class="far fa-eye"></i></a></li>
+                                            <li><a class="btn btn-success text-white mt-2" href="/shop-details"><i class="fas fa-cart-plus"></i></a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <a href="/shop-details" class="h3 text-decoration-none">Bee Hive</a>
+                                    <ul class="w-100 list-unstyled d-flex justify-content-between mb-0">
+                                        <li>Size</li>
+
+                                    </ul>
+
+                                    <p class="text-center mb-0">Ksh250.00</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card mb-4 product-wap rounded-0">
+                                <div class="card rounded-0">
+                                    <img class="card-img rounded-0 img-fluid" src="assets/img/shop_03.png">
+                                    <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
+                                        <ul class="list-unstyled">
+                                            <li><a class="btn btn-success text-white" href="/shop-details"><i class="far fa-heart"></i></a></li>
+                                            <li><a class="btn btn-success text-white mt-2" href="/shop-details"><i class="far fa-eye"></i></a></li>
+                                            <li><a class="btn btn-success text-white mt-2" href="/shop-details"><i class="fas fa-cart-plus"></i></a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <a href="/shop-details" class="h3 text-decoration-none">Bee Hive</a>
+                                    <ul class="w-100 list-unstyled d-flex justify-content-between mb-0">
+                                        <li>Size</li>
+
+                                    </ul>
+
+                                    <p class="text-center mb-0">Ksh250.00</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card mb-4 product-wap rounded-0">
+                                <div class="card rounded-0">
+                                    <img class="card-img rounded-0 img-fluid" src="assets/img/shop_04.png">
+                                    <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
+                                        <ul class="list-unstyled">
+                                            <li><a class="btn btn-success text-white" href="/shop-details"><i class="far fa-heart"></i></a></li>
+                                            <li><a class="btn btn-success text-white mt-2" href="/shop-details"><i class="far fa-eye"></i></a></li>
+                                            <li><a class="btn btn-success text-white mt-2" href="/shop-details"><i class="fas fa-cart-plus"></i></a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <a href="/shop-details" class="h3 text-decoration-none">Bee Hive</a>
+                                    <ul class="w-100 list-unstyled d-flex justify-content-between mb-0">
+                                        <li>Size</li>
+
+                                    </ul>
+
+                                    <p class="text-center mb-0">Ksh250.00</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card mb-4 product-wap rounded-0">
+                                <div class="card rounded-0">
+                                    <img class="card-img rounded-0 img-fluid" src="assets/img/shop_05.png">
+                                    <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
+                                        <ul class="list-unstyled">
+                                            <li><a class="btn btn-success text-white" href="/shop-details"><i class="far fa-heart"></i></a></li>
+                                            <li><a class="btn btn-success text-white mt-2" href="/shop-details"><i class="far fa-eye"></i></a></li>
+                                            <li><a class="btn btn-success text-white mt-2" href="/shop-details"><i class="fas fa-cart-plus"></i></a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <a href="/shop-details" class="h3 text-decoration-none">Bee Hive</a>
+                                    <ul class="w-100 list-unstyled d-flex justify-content-between mb-0">
+                                        <li>Size</li>
+
+                                    </ul>
+
+                                    <p class="text-center mb-0">Ksh250.00</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card mb-4 product-wap rounded-0">
+                                <div class="card rounded-0">
+                                    <img class="card-img rounded-0 img-fluid" src="assets/img/shop_06.png">
+                                    <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
+                                        <ul class="list-unstyled">
+                                            <li><a class="btn btn-success text-white" href="/shop-details"><i class="far fa-heart"></i></a></li>
+                                            <li><a class="btn btn-success text-white mt-2" href="/shop-details"><i class="far fa-eye"></i></a></li>
+                                            <li><a class="btn btn-success text-white mt-2" href="/shop-details"><i class="fas fa-cart-plus"></i></a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <a href="/shop-details" class="h3 text-decoration-none">Bee Hive</a>
+                                    <ul class="w-100 list-unstyled d-flex justify-content-between mb-0">
+                                        <li>Size</li>
+
+                                    </ul>
+
+                                    <p class="text-center mb-0">Ksh250.00</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card mb-4 product-wap rounded-0">
+                                <div class="card rounded-0">
+                                    <img class="card-img rounded-0 img-fluid" src="assets/img/shop_07.png">
+                                    <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
+                                        <ul class="list-unstyled">
+                                            <li><a class="btn btn-success text-white" href="/shop-details"><i class="far fa-heart"></i></a></li>
+                                            <li><a class="btn btn-success text-white mt-2" href="/shop-details"><i class="far fa-eye"></i></a></li>
+                                            <li><a class="btn btn-success text-white mt-2" href="/shop-details"><i class="fas fa-cart-plus"></i></a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <a href="/shop-details" class="h3 text-decoration-none">Bee Hive</a>
+                                    <ul class="w-100 list-unstyled d-flex justify-content-between mb-0">
+                                        <li>Size</li>
+
+                                    </ul>
+
+                                    <p class="text-center mb-0">Ksh250.00</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card mb-4 product-wap rounded-0">
+                                <div class="card rounded-0">
+                                    <img class="card-img rounded-0 img-fluid" src="assets/img/shop_08.png">
+                                    <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
+                                        <ul class="list-unstyled">
+                                            <li><a class="btn btn-success text-white" href="/shop-details"><i class="far fa-heart"></i></a></li>
+                                            <li><a class="btn btn-success text-white mt-2" href="/shop-details"><i class="far fa-eye"></i></a></li>
+                                            <li><a class="btn btn-success text-white mt-2" href="/shop-details"><i class="fas fa-cart-plus"></i></a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <a href="/shop-details" class="h3 text-decoration-none">Bee Hive</a>
+                                    <ul class="w-100 list-unstyled d-flex justify-content-between mb-0">
+                                        <li>Size</li>
+
+                                    </ul>
+
+                                    <p class="text-center mb-0">Ksh250.00</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card mb-4 product-wap rounded-0">
+                                <div class="card rounded-0">
+                                    <img class="card-img rounded-0 img-fluid" src="assets/img/shop_09.png">
+                                    <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
+                                        <ul class="list-unstyled">
+                                            <li><a class="btn btn-success text-white" href="/shop-details"><i class="far fa-heart"></i></a></li>
+                                            <li><a class="btn btn-success text-white mt-2" href="/shop-details"><i class="far fa-eye"></i></a></li>
+                                            <li><a class="btn btn-success text-white mt-2" href="/shop-details"><i class="fas fa-cart-plus"></i></a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <a href="/shop-details" class="h3 text-decoration-none">Bee Hive</a>
+                                    <ul class="w-100 list-unstyled d-flex justify-content-between mb-0">
+                                        <li>Size</li>
+
+                                    </ul>
+
+                                    <p class="text-center mb-0">Ksh250.00</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div div="row">
+                        <ul class="pagination pagination-lg justify-content-end">
+                            <li class="page-item disabled">
+                                <a class="page-link active rounded-0 mr-3 shadow-sm border-top-0 border-left-0" href="#" tabindex="-1">1</a>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link rounded-0 mr-3 shadow-sm border-top-0 border-left-0 text-dark" href="#">2</a>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link rounded-0 shadow-sm border-top-0 border-left-0 text-dark" href="#">3</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </section>
+
+    <div data-th-include="/users/footer.html"></div>
+
+
+<!--    &lt;!&ndash;jQuery&ndash;&gt;-->
+<!--    <script src="assets/js/jquery-3.3.1.js"></script>-->
+<!--    &lt;!&ndash;Plugins&ndash;&gt;-->
+<!--    <script src="assets/js/bootstrap.bundle.js"></script>-->
+<!--    <script src="assets/js/loaders.css}.js"></script>-->
+<!--    <script src="assets/js/aos.js"></script>-->
+<!--    <script src="assets/js/swiper.min.js"></script>-->
+<!--    <script src="assets/js/lightgallery-all.min.js"></script>-->
+<!--    &lt;!&ndash;Template Script&ndash;&gt;-->
+<!--    <script src="assets/js/main.js"></script>-->
+
+
+        <!-- Start Script -->
+        <script th:src="@{/assets/shop/assets/js/jquery-1.11.0.min.js}"></script>
+        <script th:src="@{/assets/shop/assets/js/jquery-migrate-1.2.1.min.js}"></script>
+        <script th:src="@{/assets/shop/assets/js/bootstrap.bundle.min.js}"></script>
+        <script th:src="@{/assets/shop/assets/js/templatemo.js}"></script>
+        <script th:src="@{/assets/shop/assets/js/custom.js}"></script>
+        <!-- End Script -->
+</body>
+
+</html>
