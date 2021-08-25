@@ -35,4 +35,9 @@ public class WebController {
     public String getGallery(){
         return "/users/gallery";
     }
+
+    @RequestMapping(value = "/admin/dashboard")
+    public String viewAdminDashboard(){
+        return "/admin/dashboard";
+    }
 }
