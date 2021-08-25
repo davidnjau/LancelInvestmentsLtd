@@ -40,4 +40,14 @@ public class WebController {
     public String viewAdminDashboard(){
         return "/admin/dashboard";
     }
+
+    @RequestMapping(value = "/admin/view-products")
+    public String viewProducts(){
+        return "/admin/products";
+    }
+
+    @RequestMapping(value = "/admin/add-product")
+    public String addProducts(){
+        return "/admin/add_products";
+    }
 }

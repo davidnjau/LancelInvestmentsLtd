@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <!-- Font Icon -->
+    <link rel="stylesheet" th:href="@{/fonts/material-icon/css/material-design-iconic-font.min.css}">
+    <link rel="stylesheet" th:href="@{/vendor/nouislider/nouislider.min.css}">
+
+    <!-- Main css -->
+    <link rel="stylesheet" th:href="@{/assets/admin/assets/table/css/style.css}">
+
+</head>
+<body>
+
+<!--<div style="height: 70px" data-th-include="/admin/admin_header.html"></div>-->
+
+<div class="main">
+
+    <div class="container">
+        <form method="POST" id="signup-form" class="signup-form" action="#">
+            <div>
+                <h3>Product Information</h3>
+                <fieldset>
+                    <h2>Product information</h2>
+                    <p class="desc">Please enter the product infomation and proceed to next step.</p>
+                    <div class="fieldset-content">
+                        <div class="form-row">
+                            <label class="form-label">Product Name</label>
+                            <div class="form-flex">
+                                <div class="form-group">
+                                    <input type="text" name="productName" id="productName" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="description" class="form-label">Description</label>
+                            <input type="text" name="description" id="description" />
+                        </div>
+                        <div class="form-group">
+                            <label for="ingredients" class="form-label">Ingredients</label>
+                            <input type="text" name="ingredients" id="ingredients" />
+                        </div>
+
+
+
+                    </div>
+                </fieldset>
+
+                <h3>Product Detailed Descriptions</h3>
+                <fieldset>
+                    <h2>Product Size and pricing</h2>
+                    <p class="desc">Please enter product size and pricing.</p>
+
+                    <div class="form-date">
+                        <label for="sizeAmount" class="form-label">Product Size & prices</label>
+                        <div class="form-date-group">
+                            <div class="form-date-item">
+                                <input type="number" name="sizeAmount" id="sizeAmount" />
+                                <span class="text-input">Size</span>
+                            </div>
+                            <div class="form-date-item">
+                                <input type="text" name="sizeUnit" id="sizeUnit" />
+                                <span class="text-input">Size Unit(g/kg)</span>
+                            </div>
+                            <div class="form-date-item">
+                                <input type="number" name="newPrice" id="newPrice" />
+                                <span class="text-input">New Price</span>
+                            </div>
+                            <div class="form-date-item">
+                                <input type="number" name="oldPrice" id="oldPrice" />
+                                <span class="text-input">Old Price</span>
+                            </div>
+                            <div class="form-date-item">
+                                <button type="button">Add Size</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-date">
+                        <label for="sizeAmount" class="form-label">Product Images</label>
+                        <div class="form-date-group">
+                            <div class="form-date-item">
+                                <div class="form-group col-sm-3">
+                                    <label for="image1" class="form-label">Upload Image 1</label>
+                                    <input type='file' onchange="readURL(this);" />
+                                    <img style="max-width: 100px" id="image1" src="http://placehold.it/180" alt="your image" />
+                                </div>
+                            </div>
+
+                            <div class="form-date-item">
+                                <div class="form-group col-sm-3">
+                                    <label for="image2" class="form-label">Upload Image 2</label>
+                                    <input type='file' onchange="readURL(this);" />
+                                    <img style="max-width: 100px" id="image2" src="http://placehold.it/180" alt="your image" />
+                                </div>
+                            </div>
+
+                            <div class="form-date-item">
+                                <div class="form-group col-sm-3">
+                                    <label for="image3" class="form-label">Upload Image 3</label>
+                                    <input type='file' onchange="readURL(this);" />
+                                    <img style="max-width: 100px" id="image3" src="http://placehold.it/180" alt="your image" />
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </fieldset>
+
+            </div>
+        </form>
+    </div>
+
+</div>
+
+
+
+<script>
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#blah')
+                    .attr('src', e.target.result);
+            };
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+
+</script>
+
+<!-- JS -->
+<script th:src="@{/assets/admin/assets/table/vendor/jquery/jquery.min.js}"></script>
+<script th:src="@{/assets/admin/assets/table/vendor/jquery-validation/dist/jquery.validate.min.js}"></script>
+<script th:src="@{/assets/admin/assets/table/vendor/jquery-validation/dist/additional-methods.min.js}"></script>
+<script th:src="@{/assets/admin/assets/table/vendor/jquery-steps/jquery.steps.min.js}"></script>
+<script th:src="@{/assets/admin/assets/table/vendor/minimalist-picker/dobpicker.js}"></script>
+<script th:src="@{/assets/admin/assets/table/vendor/nouislider/nouislider.min.js}"></script>
+<script th:src="@{/assets/admin/assets/table/vendor/wnumb/wNumb.js}"></script>
+<script th:src="@{/assets/admin/assets/table/js/main.js}"></script>
+
+</body>
+
+
+
+</html>

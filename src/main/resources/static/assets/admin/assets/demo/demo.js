@@ -97,7 +97,7 @@ demo = {
   initChartsPages: function() {
     chartColor = "#FFFFFF";
 
-    ctx = document.getElementById('chartHours').getContext("2d");
+    // ctx = document.getElementById('chartHours').getContext("2d");
 
     myChart = new Chart(ctx, {
       type: 'line',
