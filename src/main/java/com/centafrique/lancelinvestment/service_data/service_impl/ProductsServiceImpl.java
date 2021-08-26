@@ -95,9 +95,9 @@ public class ProductsServiceImpl implements ProductsService, ProductSizesInfo, P
 
         Products products = new Products(productName, productDescription, productIngredients);
 
-//        Formatter formatter = new Formatter();
-//        Products productsDataDetails = formatter.productDetails(productsRepository, products);
-        Products productsDataDetails = addProduct(products);
+        Formatter formatter = new Formatter();
+        Products productsDataDetails = formatter.productDetails(productsRepository, products);
+//        Products productsDataDetails = addProduct(products);
         if (productsDataDetails != null){
 
             String productId = productsDataDetails.getId();

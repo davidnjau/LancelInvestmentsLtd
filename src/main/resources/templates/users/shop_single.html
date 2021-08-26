@@ -1,21 +1,21 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 
 <head>
 
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700,700i%7CRajdhani:400,600,700"
         rel="stylesheet">
     <!-- Plugins Stylesheets -->
-    <link rel="stylesheet" href="assets/css/loader/loaders.css">
-    <link rel="stylesheet" href="assets/css/font-awesome/font-awesome.css">
-    <link rel="stylesheet" href="assets/css/bootstrap.css">
-    <link rel="stylesheet" href="assets/css/aos/aos.css">
-    <link rel="stylesheet" href="assets/css/swiper/swiper.css">
-    <link rel="stylesheet" href="assets/css/lightgallery.min.css">
-    <!-- Template Stylesheet -->
-    <link rel="stylesheet" href="assets/css/style.css">
-    <!-- Responsive Stylesheet -->
-    <link rel="stylesheet" href="assets/css/responsive.css">
+<!--    <link rel="stylesheet" href="assets/css/loader/loaders.css">-->
+<!--    <link rel="stylesheet" href="assets/css/font-awesome/font-awesome.css">-->
+<!--    <link rel="stylesheet" href="assets/css/bootstrap.css">-->
+<!--    <link rel="stylesheet" href="assets/css/aos/aos.css">-->
+<!--    <link rel="stylesheet" href="assets/css/swiper/swiper.css">-->
+<!--    <link rel="stylesheet" href="assets/css/lightgallery.min.css">-->
+<!--    &lt;!&ndash; Template Stylesheet &ndash;&gt;-->
+<!--    <link rel="stylesheet" href="assets/css/style.css">-->
+<!--    &lt;!&ndash; Responsive Stylesheet &ndash;&gt;-->
+<!--    <link rel="stylesheet" href="assets/css/responsive.css">-->
 
     <title>Lancel Investment Ltd</title>
     <!-- Stylesheets & Fonts -->
@@ -87,7 +87,7 @@ https://templatemo.com/tm-559-Bee Keeping-shop
 
 
     <div>
-        <img style="min-height: 500px" class="img-fluid" src="assets/blog/assets/img/hero/about_hero.png" alt="Post 1">
+        <img style="min-height: 500px" class="img-fluid" th:src="@{/assets/blog/assets/img/hero/about_hero.png}" alt="Post 1">
     </div>
 
     <!-- Open Content -->
@@ -96,7 +96,7 @@ https://templatemo.com/tm-559-Bee Keeping-shop
             <div class="row">
                 <div class="col-lg-5 mt-5">
                     <div class="card mb-3">
-                        <img class="card-img img-fluid" src="assets/shop/assets/img/product_single_10.png" alt="Card image cap" id="product-detail">
+                        <img class="card-img img-fluid" th:src="@{/assets/shop/assets/img/product_single_10.png}" alt="Card image cap" id="product-detail">
                     </div>
                     <div class="row">
                         <!--Start Controls-->
@@ -117,17 +117,17 @@ https://templatemo.com/tm-559-Bee Keeping-shop
                                     <div class="row">
                                         <div class="col-4">
                                             <a href="#">
-                                                <img class="card-img img-fluid" src="assets/shop/assets/img/product_single_01.png" alt="Product Image 1">
+                                                <img class="card-img img-fluid" th:src="@{/assets/shop/assets/img/product_single_01.png}" alt="Product Image 1">
                                             </a>
                                         </div>
                                         <div class="col-4">
                                             <a href="#">
-                                                <img class="card-img img-fluid" src="assets/shop/assets/img/product_single_02.png" alt="Product Image 2">
+                                                <img class="card-img img-fluid" th:src="@{/assets/shop/assets/img/product_single_02.png}" alt="Product Image 2">
                                             </a>
                                         </div>
                                         <div class="col-4">
                                             <a href="#">
-                                                <img class="card-img img-fluid" src="assets/shop/assets/img/product_single_03.png" alt="Product Image 3">
+                                                <img class="card-img img-fluid" th:src="@{/assets/shop/assets/img/product_single_03.png}" alt="Product Image 3">
                                             </a>
                                         </div>
                                     </div>
@@ -139,17 +139,17 @@ https://templatemo.com/tm-559-Bee Keeping-shop
                                     <div class="row">
                                         <div class="col-4">
                                             <a href="#">
-                                                <img class="card-img img-fluid" src="assets/shop/assets/img/product_single_04.png" alt="Product Image 4">
+                                                <img class="card-img img-fluid" th:src="@{/assets/shop/assets/img/product_single_04.png}" alt="Product Image 4">
                                             </a>
                                         </div>
                                         <div class="col-4">
                                             <a href="#">
-                                                <img class="card-img img-fluid" src="assets/shop/assets/img/product_single_05.png" alt="Product Image 5">
+                                                <img class="card-img img-fluid" th:src="@{/assets/shop/assets/img/product_single_05.png}" alt="Product Image 5">
                                             </a>
                                         </div>
                                         <div class="col-4">
                                             <a href="#">
-                                                <img class="card-img img-fluid" src="assets/shop/assets/img/product_single_06.png" alt="Product Image 6">
+                                                <img class="card-img img-fluid" th:src="@{/assets/shop/assets/img/product_single_06.png}" alt="Product Image 6">
                                             </a>
                                         </div>
                                     </div>
@@ -161,17 +161,17 @@ https://templatemo.com/tm-559-Bee Keeping-shop
                                     <div class="row">
                                         <div class="col-4">
                                             <a href="#">
-                                                <img class="card-img img-fluid" src="assets/shop/assets/img/product_single_07.png" alt="Product Image 7">
+                                                <img class="card-img img-fluid" th:src="@{/assets/shop/assets/img/product_single_07.png}" alt="Product Image 7">
                                             </a>
                                         </div>
                                         <div class="col-4">
                                             <a href="#">
-                                                <img class="card-img img-fluid" src="assets/shop/assets/img/product_single_08.png" alt="Product Image 8">
+                                                <img class="card-img img-fluid" th:src="@{/assets/shop/assets/img/product_single_08.png}" alt="Product Image 8">
                                             </a>
                                         </div>
                                         <div class="col-4">
                                             <a href="#">
-                                                <img class="card-img img-fluid" src="assets/shop/assets/img/product_single_09.png" alt="Product Image 9">
+                                                <img class="card-img img-fluid" th:src="@{/assets/shop/assets/img/product_single_09.png}" alt="Product Image 9">
                                             </a>
                                         </div>
                                     </div>
@@ -195,23 +195,27 @@ https://templatemo.com/tm-559-Bee Keeping-shop
                 <div class="col-lg-7 mt-5">
                     <div class="card">
                         <div class="card-body">
-                            <h1 class="h2">Bee Keeping</h1>
+                            <h1 class="h2" th:text="${productDetails.getProductName()}"></h1>
                             <p class="h3 py-2">Ksh25.00</p>
 
                             <h6>Description:</h6>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod temp incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse. Donec condimentum elementum convallis. Nunc sed orci a diam ultrices aliquet interdum quis nulla.</p>
-                            
+                            <p th:text="${productDetails.getProductDescription()}"></p>
 
-                            <h6>Specification:</h6>
-                            <ul class="list-unstyled pb-3">
-                                <li>Lorem ipsum dolor sit</li>
-                                <li>Amet, consectetur</li>
-                                <li>Adipiscing elit,set</li>
-                                <li>Duis aute irure</li>
-                                <li>Ut enim ad minim</li>
-                                <li>Dolore magna aliqua</li>
-                                <li>Excepteur sint</li>
-                            </ul>
+                            <h6>Ingredients:</h6>
+                            <p th:text="${productDetails.getProductIngredients()}"></p>
+
+                            <h6>Select Size:</h6>
+
+                            <div th:each="productSizes : ${productDetails.getProductSizes()}">
+
+                                <input type="radio" th:id="${productSizes.getId()}"
+                                       th:name="radioSizes"
+                                       th:value="${productSizes.getSizeAmount()}">
+
+                                <label th:for="${productSizes.getSizeAmount()}"
+                                       th:text="${productSizes.getSizeAmount()} + ${ productSizes.getSizeUnit()}"></label><br>
+
+                            </div>
 
                             <form action="" method="GET">
                                 <input type="hidden" name="product-title" value="Activewear">
@@ -262,7 +266,7 @@ https://templatemo.com/tm-559-Bee Keeping-shop
     <!-- End Script -->
 
     <!-- Start Slider Script -->
-    <script src="assets/shop/assets/js/slick.min.js"></script>
+    <script th:src="@{/assets/shop/assets/js/slick.min.js}"></script>
     <script>
         $('#carousel-related-product').slick({
             infinite: true,

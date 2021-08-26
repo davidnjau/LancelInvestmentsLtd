@@ -46,17 +46,17 @@ public class ProductController {
 
     }
 
-    @RequestMapping(value = "shop-details/{productId}", method = RequestMethod.GET)
-    public ResponseEntity getProductDetail(@PathVariable("productId") String productId){
-
-        ProductDetails productDetails = productsServiceImpl.getProductDetails(productId);
-        if (productDetails != null){
-            return new ResponseEntity(productDetails, HttpStatus.OK);
-        }else {
-            return ResponseEntity.badRequest().body(new DynamicRes("There was an issue. Try again"));
-        }
-
-    }
+//    @RequestMapping(value = "shop-details/{productId}", method = RequestMethod.GET)
+//    public ResponseEntity getProductDetail(@PathVariable("productId") String productId){
+//
+//        ProductDetails productDetails = productsServiceImpl.getProductDetails(productId);
+//        if (productDetails != null){
+//            return new ResponseEntity(productDetails, HttpStatus.OK);
+//        }else {
+//            return ResponseEntity.badRequest().body(new DynamicRes("There was an issue. Try again"));
+//        }
+//
+//    }
 
 
 }
