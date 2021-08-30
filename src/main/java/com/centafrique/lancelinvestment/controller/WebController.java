@@ -26,6 +26,15 @@ public class WebController {
         return "/users/home";
     }
 
+    @RequestMapping(value ="/about_us")
+    public String getAboutUs(){
+        return "/users/about_us";
+    }
+    @RequestMapping(value ="/services")
+    public String getServices(){
+        return "/users/services";
+    }
+
     @RequestMapping(value ="/blog")
     public String getBlog(){
         return "/users/blog";

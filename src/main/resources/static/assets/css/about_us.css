@@ -1,0 +1,267 @@
+/* Website template by freewebsitetemplates.com */
+
+
+/*----------------------------------------body-styles---------------------------------------*/
+
+#body.about .header {
+    background: url(../images/bg-about.jpg) no-repeat center top #f7c82b;
+    margin: 0;
+    min-height: 455px;
+    padding: 0;
+    width: 100%;
+}
+
+#body.about .header div,
+#body .header div {
+    margin: 0 auto;
+    max-width: 960px;
+    overflow: hidden;
+    padding: 65px 0 40px;
+}
+
+#body.about .header div h1,
+#body .header div h1 {
+    color: #FFFFFF;
+    display: block;
+    font-family: audiowide-regular-webfont;
+    font-size: 36px;
+    font-weight: normal;
+    line-height: 36px;
+    margin: 0 auto 87px;
+    padding: 0;
+    text-align: center;
+    text-transform: uppercase;
+    width: 940px;
+}
+
+#body.about .header div h2 {
+    color: #FFFFFF;
+    display: block;
+    font-family: audiowide-regular-webfont;
+    font-size: 32px;
+    font-weight: normal;
+    line-height: 32px;
+    margin: 0 auto 24px;
+    padding: 0;
+    text-align: center;
+    text-transform: uppercase;
+    width: 820px;
+}
+
+#body.about .header div p {
+    color: #ffffff;
+    display: block;
+    font-family: Arial;
+    font-size: 18px;
+    font-weight: normal;
+    line-height: 24px;
+    margin: 0 auto;
+    padding: 0;
+    text-align: center;
+    width: 820px;
+}
+
+#body.about .header div p a {
+    color: #ffffff;
+    font-family: Arial;
+    font-size: 18px;
+    font-weight: normal;
+    line-height: 24px;
+    margin: 0;
+    padding: 0;
+    text-decoration: underline;
+}
+
+#body.about .header div p a:hover {
+    color: #a3a3a3;
+}
+
+#body.about .body {
+    background-color: #480c2e;
+    margin: 0;
+    min-height: 253px;
+    overflow: hidden;
+    padding: 0;
+    width: 100%;
+}
+
+#body.about .body div {
+    margin: 0 auto;
+    max-width: 940px;
+    overflow: hidden;
+    padding: 36px 10px 35px;
+}
+
+#body.about .body div h2 {
+    color: #A3A3A3;
+    float: left;
+    font-family: audiowide-regular-webfont;
+    font-size: 23px;
+    font-weight: normal;
+    line-height: 23px;
+    margin: 18px 0 26px;
+    padding: 0;
+    text-align: left;
+    text-transform: uppercase;
+    width: 620px;
+}
+
+#body.about .body div p {
+    color: #ffffff;
+    display: block;
+    float: left;
+    font-family: Arial;
+    font-size: 14px;
+    font-weight: normal;
+    line-height: 24px;
+    margin: 0;
+    padding: 0;
+    text-align: left;
+    width: 620px;
+}
+
+#body.about .body div p a {
+    color: #ffffff;
+    font-family: Arial;
+    font-size: 14px;
+    font-weight: normal;
+    line-height: 24px;
+    margin: 0;
+    padding: 0;
+    text-decoration: underline;
+}
+
+#body.about .body div p a:hover {
+    color: #a3a3a3;
+}
+
+#body.about .body div img {
+    display: block;
+    float: right;
+    margin: 0;
+    padding: 0;
+    width: auto;
+}
+
+#body.about .footer {
+    background-color: #f7c82b;
+    margin: 0;
+    min-height: 366px;
+    padding: 0;
+    width: 100%;
+}
+
+#body.about .footer div {
+    margin: 0 auto;
+    overflow: hidden;
+    padding: 79px 0 0 10px;
+    width: 950px;
+}
+
+#body.about .footer div h2 {
+    color: #A3A3A3;
+    float: right;
+    font-family: audiowide-regular-webfont;
+    font-size: 23px;
+    font-weight: normal;
+    line-height: 23px;
+    margin: 34px 0 24px;
+    padding: 0;
+    text-align: left;
+    text-transform: uppercase;
+    width: 557px;
+}
+
+#body.about .footer div p {
+    color: #ffffff;
+    display: block;
+    float: right;
+    font-family: Arial;
+    font-size: 18px;
+    font-weight: normal;
+    line-height: 24px;
+    margin: 0 auto;
+    padding: 0;
+    text-align: left;
+    width: 557px;
+}
+
+#body.about .footer div p a {
+    color: #ffffff;
+    font-family: Arial;
+    font-size: 18px;
+    font-weight: normal;
+    line-height: 24px;
+    margin: 0 auto;
+    padding: 0;
+    text-decoration: underline;
+}
+
+#body.about .footer div p a:hover {
+    color: #a3a3a3;
+}
+
+#body.about .footer div img {
+    float: left;
+    display: block;
+    margin: 0;
+    padding: 0;
+    width: auto;
+}
+
+#body.about .section {
+    background-color: #f7c82b;
+    margin: 0;
+    min-height: 234px;
+    padding: 0;
+    width: auto;
+}
+
+#body.about .section div {
+    margin: 0 auto;
+    max-width: 960px;
+    overflow: hidden;
+    padding: 58px 0 55px;
+}
+
+#body.about .section div h2 {
+    color: #A3A3A3;
+    display: block;
+    font-family: audiowide-regular-webfont;
+    font-size: 23px;
+    font-weight: normal;
+    line-height: 23px;
+    margin: 0 auto 26px;
+    padding: 0;
+    text-align: center;
+    text-transform: uppercase;
+    width: 780px;
+}
+
+#body.about .section div p {
+    color: #ffffff;
+    display: block;
+    font-family: Arial;
+    font-size: 14px;
+    font-weight: normal;
+    line-height: 24px;
+    margin: 0 auto;
+    padding: 0;
+    text-align: center;
+    width: 780px;
+}
+
+#body.about .section div p a {
+    color: #ffffff;
+    font-family: Arial;
+    font-size: 14px;
+    font-weight: normal;
+    line-height: 24px;
+    margin: 0;
+    padding: 0;
+    text-decoration: underline;
+}
+
+#body.about .section div p a:hover {
+    color: #a3a3a3;
+}
