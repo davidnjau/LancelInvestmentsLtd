@@ -14,7 +14,7 @@
     <name>Lancel Investment</name>
     <description>Demo project for Spring Boot</description>
     <properties>
-        <java.version>11</java.version>
+        <java.version>6</java.version>
         <kotlin.version>1.5.30</kotlin.version>
         <kotlinx-coroutines.version>1.2.0</kotlinx-coroutines.version>
     </properties>
