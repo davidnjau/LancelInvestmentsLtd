@@ -14,7 +14,7 @@
     <name>Lancel Investment</name>
     <description>Demo project for Spring Boot</description>
     <properties>
-        <java.version>6</java.version>
+        <java.version>11</java.version>
         <kotlin.version>1.5.30</kotlin.version>
         <kotlinx-coroutines.version>1.2.0</kotlinx-coroutines.version>
     </properties>
@@ -48,6 +48,29 @@
             <groupId>org.jetbrains.kotlinx</groupId>
             <artifactId>kotlinx-coroutines-reactor</artifactId>
             <version>${kotlinx-coroutines.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.auth0</groupId>
+            <artifactId>java-jwt</artifactId>
+            <version>3.18.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.nimbusds</groupId>
+            <artifactId>nimbus-jose-jwt</artifactId>
+            <version>7.8</version>
         </dependency>
 
         <dependency>
