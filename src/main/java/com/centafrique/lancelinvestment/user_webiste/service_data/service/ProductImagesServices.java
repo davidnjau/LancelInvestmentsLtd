@@ -1,6 +1,6 @@
-package com.centafrique.lancelinvestment.service_data.service;
+package com.centafrique.lancelinvestment.user_webiste.service_data.service;
 
-import com.centafrique.lancelinvestment.entity.ProductImages;
+import com.centafrique.lancelinvestment.user_webiste.entity.ProductImages;
 
 import java.util.List;
 

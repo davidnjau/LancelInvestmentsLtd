@@ -1,7 +1,8 @@
-package com.centafrique.lancelinvestment.helper_class
+package com.centafrique.lancelinvestment.user_webiste.helper_class
 
-import com.centafrique.lancelinvestment.entity.ProductImages
-import com.centafrique.lancelinvestment.entity.ProductSizes
+import com.centafrique.lancelinvestment.user_webiste.entity.ProductImages
+import com.centafrique.lancelinvestment.user_webiste.entity.ProductSizes
+import javax.print.attribute.standard.PrintQuality
 
 data class ProductDetails(
 
@@ -23,4 +24,10 @@ data class DynamicFullRes(
     val nextPage: String?,
     val previousPage:String?,
     val results: List<ProductDetails>
+)
+
+data class AddToCart(
+    val productId: String,
+    val productSize: Double,
+    val productQuantity: Int
 )

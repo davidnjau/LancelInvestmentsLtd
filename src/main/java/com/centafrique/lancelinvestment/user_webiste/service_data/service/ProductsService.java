@@ -1,8 +1,7 @@
-package com.centafrique.lancelinvestment.service_data.service;
+package com.centafrique.lancelinvestment.user_webiste.service_data.service;
 
-import com.centafrique.lancelinvestment.entity.Products;
+import com.centafrique.lancelinvestment.user_webiste.entity.Products;
 
-import java.util.Date;
 import java.util.List;
 
 public interface ProductsService {

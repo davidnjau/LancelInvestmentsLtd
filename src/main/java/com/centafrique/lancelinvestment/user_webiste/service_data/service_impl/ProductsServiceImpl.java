@@ -1,23 +1,29 @@
-package com.centafrique.lancelinvestment.service_data.service_impl;
+package com.centafrique.lancelinvestment.user_webiste.service_data.service_impl;
 
-import com.centafrique.lancelinvestment.entity.ProductImages;
-import com.centafrique.lancelinvestment.entity.ProductSizes;
-import com.centafrique.lancelinvestment.entity.Products;
-import com.centafrique.lancelinvestment.helper_class.DynamicFullRes;
-import com.centafrique.lancelinvestment.helper_class.Formatter;
-import com.centafrique.lancelinvestment.helper_class.ProductDetails;
-import com.centafrique.lancelinvestment.repository.ProductImagesRepository;
-import com.centafrique.lancelinvestment.repository.ProductSizesRepository;
-import com.centafrique.lancelinvestment.repository.ProductsRepository;
-import com.centafrique.lancelinvestment.service_data.service.ProductImagesServices;
-import com.centafrique.lancelinvestment.service_data.service.ProductSizesInfo;
-import com.centafrique.lancelinvestment.service_data.service.ProductsService;
-import lombok.RequiredArgsConstructor;
+import com.centafrique.lancelinvestment.authentication.entity.UserDetails;
+import com.centafrique.lancelinvestment.authentication.helper_class.AuthenticationHelper;
+import com.centafrique.lancelinvestment.authentication.service_class.impl.UserDetailsServiceImpl;
+import com.centafrique.lancelinvestment.user_webiste.entity.CartItems;
+import com.centafrique.lancelinvestment.user_webiste.entity.ProductImages;
+import com.centafrique.lancelinvestment.user_webiste.entity.ProductSizes;
+import com.centafrique.lancelinvestment.user_webiste.entity.Products;
+import com.centafrique.lancelinvestment.user_webiste.helper_class.AddToCart;
+import com.centafrique.lancelinvestment.user_webiste.helper_class.DynamicFullRes;
+import com.centafrique.lancelinvestment.user_webiste.helper_class.Formatter;
+import com.centafrique.lancelinvestment.user_webiste.helper_class.ProductDetails;
+import com.centafrique.lancelinvestment.user_webiste.repository.ProductImagesRepository;
+import com.centafrique.lancelinvestment.user_webiste.repository.ProductSizesRepository;
+import com.centafrique.lancelinvestment.user_webiste.repository.ProductsRepository;
+import com.centafrique.lancelinvestment.user_webiste.service_data.service.ProductImagesServices;
+import com.centafrique.lancelinvestment.user_webiste.service_data.service.ProductSizesInfo;
+import com.centafrique.lancelinvestment.user_webiste.service_data.service.ProductsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -33,6 +39,12 @@ public class ProductsServiceImpl implements ProductsService, ProductSizesInfo, P
     private ProductSizesRepository productSizesRepository;
     @Autowired
     private ProductImagesRepository productImagesRepository;
+
+    @Autowired
+    private CartItemsServiceImpl cartItemsServiceImpl;
+
+    @Autowired
+    private UserDetailsServiceImpl userDetailsServiceImpl;
 
     //Test
 
@@ -59,12 +71,38 @@ public class ProductsServiceImpl implements ProductsService, ProductSizesInfo, P
 
     @Override
     public ProductSizes addProductSizes(ProductSizes productSizes) {
-        return productSizesRepository.save(productSizes);
+
+        String productId = productSizes.getProductId();
+
+        Optional<ProductSizes> fooOptional = productSizesRepository.findById(productId);
+        if (fooOptional.isPresent()) {
+            ProductSizes oldProductSizes = fooOptional.get();
+            oldProductSizes.setOldPrice(productSizes.getOldPrice());
+            oldProductSizes.setNewPrice(productSizes.getNewPrice());
+            oldProductSizes.setSizeUnit(productSizes.getSizeUnit());
+            oldProductSizes.setSizeUnit(productSizes.getSizeUnit());
+            oldProductSizes.setStockNumber(productSizes.getStockNumber());
+            return productSizesRepository.save(oldProductSizes);
+
+        } else {
+            return productSizesRepository.save(productSizes);
+
+        }
+
+
     }
 
     @Override
     public List<ProductSizes> getProductSizes(String productId) {
         return productSizesRepository.findAll();
+    }
+
+    @Override
+    public ProductSizes getProductSize(String productId, double productSize) {
+
+        Optional<ProductSizes> optionalProductSizes = productSizesRepository.findAllByProductIdAndSizeAmount(productId, productSize);
+        return optionalProductSizes.orElse(null);
+
     }
 
     /**
@@ -197,5 +235,49 @@ public class ProductsServiceImpl implements ProductsService, ProductSizesInfo, P
         }else {
             return null;
         }
+    }
+    public String addToCart(AddToCart addToCart){
+
+        AuthenticationHelper authenticationHelper = new AuthenticationHelper();
+        UserDetails userDetails = authenticationHelper.getAuthDetails(userDetailsServiceImpl);
+        String userId = userDetails.getUserId();
+
+        String productId = addToCart.getProductId();
+        double productSize = addToCart.getProductSize();
+        int productQuantity = addToCart.getProductQuantity();
+
+        ProductSizes productDetails = getProductSize(productId, productSize);
+        if (productDetails != null){
+
+            double productStock = productDetails.getStockNumber();
+            double productNewPrice = productDetails.getNewPrice();
+
+            if (productStock > 0){
+
+                double totalAmount = productNewPrice * productQuantity;
+
+                CartItems cartItems = new CartItems(userId,productId, productSize, productQuantity,totalAmount);
+                //Add to Cart
+                cartItemsServiceImpl.addCart(cartItems);
+                return "Product added successfully";
+
+            }else {
+
+                //Don't add to cart
+                return "Stock value is 0";
+
+            }
+
+        }else {
+
+            return "Adding to cart failed";
+
+        }
+
+
+
+
+
+
     }
 }

@@ -1,12 +1,9 @@
-package com.centafrique.lancelinvestment.controller;
+package com.centafrique.lancelinvestment.user_webiste.controller;
 
-import com.centafrique.lancelinvestment.helper_class.DynamicFullRes;
-import com.centafrique.lancelinvestment.helper_class.DynamicRes;
-import com.centafrique.lancelinvestment.helper_class.ProductDetails;
-import com.centafrique.lancelinvestment.service_data.service_impl.ProductsServiceImpl;
+import com.centafrique.lancelinvestment.user_webiste.helper_class.DynamicFullRes;
+import com.centafrique.lancelinvestment.user_webiste.helper_class.ProductDetails;
+import com.centafrique.lancelinvestment.user_webiste.service_data.service_impl.ProductsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;

@@ -1,16 +1,14 @@
-package com.centafrique.lancelinvestment.controller;
+package com.centafrique.lancelinvestment.user_webiste.controller;
 
-import com.centafrique.lancelinvestment.entity.Products;
-import com.centafrique.lancelinvestment.helper_class.DynamicFullRes;
-import com.centafrique.lancelinvestment.helper_class.DynamicRes;
-import com.centafrique.lancelinvestment.helper_class.ProductDetails;
-import com.centafrique.lancelinvestment.service_data.service_impl.ProductsServiceImpl;
+import com.centafrique.lancelinvestment.user_webiste.helper_class.AddToCart;
+import com.centafrique.lancelinvestment.user_webiste.helper_class.DynamicFullRes;
+import com.centafrique.lancelinvestment.user_webiste.helper_class.DynamicRes;
+import com.centafrique.lancelinvestment.user_webiste.helper_class.ProductDetails;
+import com.centafrique.lancelinvestment.user_webiste.service_data.service_impl.ProductsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 public class ProductController {
@@ -30,7 +28,7 @@ public class ProductController {
 
     }
 
-    @RequestMapping(value = "api/v1/products/get_products", method = RequestMethod.GET)
+    @RequestMapping(value = "/api/v1/products/get_products", method = RequestMethod.GET)
     public ResponseEntity getProducts(
             @RequestParam(defaultValue = "1") Integer pageNo,
             @RequestParam(defaultValue = "9") Integer pageSize,
@@ -43,6 +41,15 @@ public class ProductController {
         }else {
             return ResponseEntity.badRequest().body(new DynamicRes("There was an issue. Try again"));
         }
+
+    }
+
+    @RequestMapping(value = "/api/v1/user/products/add-to-cart", method = RequestMethod.POST)
+    public ResponseEntity addProductCart(@RequestBody AddToCart addToCart){
+
+        String response = productsServiceImpl.addToCart(addToCart);
+        return new ResponseEntity(response, HttpStatus.OK);
+
 
     }
 

@@ -1,7 +1,7 @@
-package com.centafrique.lancelinvestment.helper_class
+package com.centafrique.lancelinvestment.user_webiste.helper_class
 
-import com.centafrique.lancelinvestment.entity.Products
-import com.centafrique.lancelinvestment.repository.ProductsRepository
+import com.centafrique.lancelinvestment.user_webiste.entity.Products
+import com.centafrique.lancelinvestment.user_webiste.repository.ProductsRepository
 import kotlinx.coroutines.*
 
 class Formatter {

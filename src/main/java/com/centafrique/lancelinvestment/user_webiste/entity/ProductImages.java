@@ -1,4 +1,4 @@
-package com.centafrique.lancelinvestment.entity;
+package com.centafrique.lancelinvestment.user_webiste.entity;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
