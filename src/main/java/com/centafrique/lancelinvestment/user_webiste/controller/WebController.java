@@ -20,27 +20,27 @@ public class WebController {
 
     @RequestMapping(value ="/")
     public String getHome(){
-        return "/users/home";
+        return "home";
     }
 
 
     @RequestMapping(value ="/about_us")
     public String getAboutUs(){
-        return "/users/about_us";
+        return "about_us";
     }
     @RequestMapping(value ="/services")
     public String getServices(){
-        return "/users/services";
+        return "services";
     }
 
     @RequestMapping(value ="/blog")
     public String getBlog(){
-        return "/users/blog";
+        return "blog";
     }
 
     @RequestMapping(value ="/blog-details")
     public String getBlogDetails(){
-        return "/users/blog_details";
+        return "blog_details";
     }
 
     @RequestMapping(value = "/shop")
@@ -55,7 +55,7 @@ public class WebController {
 
         List<ProductDetails> productDetailsList = dynamicRes.getResults();
 
-        ModelAndView modelAndView = new ModelAndView("/users/shop");
+        ModelAndView modelAndView = new ModelAndView("shop");
         modelAndView.addObject("productDetailsList", productDetailsList);
         modelAndView.addObject("pageNo", pageNo);
         modelAndView.addObject("pageSize", pageSize);
@@ -69,13 +69,13 @@ public class WebController {
         ProductDetails productDetails = productsServiceImpl.getProductDetails(productId);
         if (productDetails != null){
 
-            ModelAndView modelAndView = new ModelAndView("/users/shop_single");
+            ModelAndView modelAndView = new ModelAndView("shop_single");
             modelAndView.addObject("productDetails", productDetails);
             return modelAndView;
 
         }else {
 
-            ModelAndView modelAndView = new ModelAndView("/users/shop_single");
+            ModelAndView modelAndView = new ModelAndView("shop_single");
 //            modelAndView.addObject("productDetails", productDetails);
             return modelAndView;
 
@@ -86,26 +86,26 @@ public class WebController {
 
     @RequestMapping(value = "/shop-details")
     public String getShopDetail(){
-        return "/users/shop_single";
+        return "shop_single";
     }
 
     @RequestMapping(value = "/gallery")
     public String getGallery(){
-        return "/users/gallery";
+        return "gallery";
     }
 
     @RequestMapping(value = "/admin/dashboard")
     public String viewAdminDashboard(){
-        return "/admin/dashboard";
+        return "admin/dashboard";
     }
 
     @RequestMapping(value = "/admin/view-products")
     public String viewProducts(){
-        return "/admin/products";
+        return "admin/products";
     }
 
     @RequestMapping(value = "/admin/add-product")
     public String addProducts(){
-        return "/admin/add_products";
+        return "admin/add_products";
     }
 }
