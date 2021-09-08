@@ -23,8 +23,16 @@
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700,700i%7CRajdhani:400,600,700"
           rel="stylesheet">
     <!-- Plugins Stylesheets -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.0/sweetalert.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/smart_wizard.min.css" rel="stylesheet" type="text/css" />
+    <link href="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/smart_wizard_theme_dots.min.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/jquery.smartWizard.min.js"></script>
+    <!--  <script src = "https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>-->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+    <!-- CSS Files -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.0/sweetalert.min.js"></script>
 
     <link rel="stylesheet" th:href="@{/assets/shop/assets/css/bootstrap.min.css}">
     <link rel="stylesheet" th:href="@{/assets/shop/assets/css/templatemo.css}">
@@ -211,7 +219,7 @@ https://templatemo.com/tm-559-Bee Keeping-shop
                             <div th:each="productSizes : ${productDetails.getProductSizes()}">
 
                                 <input type="radio" th:id="productSize"
-                                       th:name="radioSizes"
+                                       name="radioSizes"
                                        th:value="${productSizes.getSizeAmount()}">
 
                                 <label th:for="${productSizes.getSizeAmount()}"
@@ -229,11 +237,11 @@ https://templatemo.com/tm-559-Bee Keeping-shop
                                         <ul class="list-inline pb-3">
                                             <li class="list-inline-item text-right">
                                                 Quantity
-                                                <input type="hidden" name="product-quanity" id="product-quanity" value="1">
+                                                <input type="hidden" name="productQuantity" id="productQuantity" value="1">
                                             </li>
-                                            <li class="list-inline-item"><span class="btn btn-success" id="btn-minus">-</span></li>
-                                            <li class="list-inline-item"><span class="badge bg-secondary" id="var-value">1</span></li>
-                                            <li class="list-inline-item"><span class="btn btn-success" id="btn-plus">+</span></li>
+                                            <li class="list-inline-item"><div class="btn btn-success" id="btn-minus">-</div></li>
+                                            <li class="list-inline-item"><div class="badge bg-secondary" id="var-value">1</div></li>
+                                            <li class="list-inline-item"><div class="btn btn-success" id="btn-plus">+</div></li>
                                         </ul>
                                     </div>
                                 </div>
@@ -242,7 +250,7 @@ https://templatemo.com/tm-559-Bee Keeping-shop
                                         <button type="submit" class="btn btn-success btn-lg" name="submit" value="buy">Buy</button>
                                     </div>
                                     <div class="col d-grid">
-                                        <button class="btn btn-success btn-lg" onclick="addCartProducts()" >Add To Cart</button>
+                                        <button class="btn btn-success btn-lg" th:attr="onclick=|addCartProducts('${productDetails.productId}')|">Add To Cart</button>
                                     </div>
                                 </div>
                             </div>
@@ -305,13 +313,12 @@ https://templatemo.com/tm-559-Bee Keeping-shop
     <!-- SubmitToCart -->
     <script>
 
-        function addCartProducts(){
+        function addCartProducts(productId){
 
-            var productId = document.getElementById("productId").value;
-            var productSize = document.getElementById("productSize").value;
-            var productQuantity = document.getElementById("var-value").value;
+            var productSize = $("input:radio[name=radioSizes]:checked").val()
+            var productQuantity = document.getElementById('var-value').textContent;
 
-            if (productId && productSize && productQuantity){
+            if (productId && productSize !== undefined && productQuantity){
 
                 // convert to JSON
                 var dataJson = {
@@ -320,15 +327,19 @@ https://templatemo.com/tm-559-Bee Keeping-shop
                     "productQuantity":productQuantity
                 };
                 var postData = JSON.stringify(dataJson);
-                console.log(postData)
+                console.log("--*-*- "+postData)
 
                 $.ajax({
                     type: 'POST',
                     url: "/api/v1/user/products/add-to-cart",
+                    headers: {
+                        'Authorization':'Basic xxxxxxxxxxxxx',
+                        'Content-Type':'application/json'
+                    },
                     data: postData,
                     success: function(response) {
 
-                        swal(
+                        new swal(
                             'Successful Save',
                             'The Product has been added to cart.',
                             'success'
@@ -337,14 +348,27 @@ https://templatemo.com/tm-559-Bee Keeping-shop
                     }, error: function (error) {
                         // alert('error: ' + error);
 
-                        Swal.fire({
+                        var json = $.parseJSON(error.responseText);
+                        var details = json.details
+
+                        new swal({
                             icon: 'error',
                             title: 'Oops...',
-                            text: 'The product cannot be added to cart.',
+                            text: details,
                         })
-                    }
+                    },
+                    contentType: "application/json",
+                    dataType: 'json'
 
                 })
+
+            }else {
+
+                new swal({
+                    title: "error",
+                    text: "Check on the product size or the quantity.",
+                    icon: "error",
+                });
 
             }
 

@@ -22,6 +22,10 @@ public class WebController {
     public String getHome(){
         return "home";
     }
+    @RequestMapping(value ="/login")
+    public String getLogin(){
+        return "login";
+    }
 
 
     @RequestMapping(value ="/about_us")

@@ -1,9 +1,6 @@
 package com.centafrique.lancelinvestment.user_webiste.controller;
 
-import com.centafrique.lancelinvestment.user_webiste.helper_class.AddToCart;
-import com.centafrique.lancelinvestment.user_webiste.helper_class.DynamicFullRes;
-import com.centafrique.lancelinvestment.user_webiste.helper_class.DynamicRes;
-import com.centafrique.lancelinvestment.user_webiste.helper_class.ProductDetails;
+import com.centafrique.lancelinvestment.user_webiste.helper_class.*;
 import com.centafrique.lancelinvestment.user_webiste.service_data.service_impl.ProductsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -47,9 +44,19 @@ public class ProductController {
     @RequestMapping(value = "/api/v1/user/products/add-to-cart", method = RequestMethod.POST)
     public ResponseEntity addProductCart(@RequestBody AddToCart addToCart){
 
-        String response = productsServiceImpl.addToCart(addToCart);
-        return new ResponseEntity(response, HttpStatus.OK);
+        ResponseData response = productsServiceImpl.addToCart(addToCart);
+        int statusCode = response.getStatusCode();
+        String message = response.getMessage();
 
+        if (statusCode == 200){
+            return new ResponseEntity(message, HttpStatus.OK);
+        }else if (statusCode == 400){
+            return ResponseEntity.badRequest().body(new DynamicRes(message));
+        }else if (statusCode == 403){
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new DynamicRes(message));
+        }else {
+            return ResponseEntity.badRequest().body(new DynamicRes("There was an issue. Try again"));
+        }
 
     }
 

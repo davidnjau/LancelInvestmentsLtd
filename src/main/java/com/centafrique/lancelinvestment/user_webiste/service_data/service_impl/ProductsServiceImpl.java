@@ -7,10 +7,7 @@ import com.centafrique.lancelinvestment.user_webiste.entity.CartItems;
 import com.centafrique.lancelinvestment.user_webiste.entity.ProductImages;
 import com.centafrique.lancelinvestment.user_webiste.entity.ProductSizes;
 import com.centafrique.lancelinvestment.user_webiste.entity.Products;
-import com.centafrique.lancelinvestment.user_webiste.helper_class.AddToCart;
-import com.centafrique.lancelinvestment.user_webiste.helper_class.DynamicFullRes;
-import com.centafrique.lancelinvestment.user_webiste.helper_class.Formatter;
-import com.centafrique.lancelinvestment.user_webiste.helper_class.ProductDetails;
+import com.centafrique.lancelinvestment.user_webiste.helper_class.*;
 import com.centafrique.lancelinvestment.user_webiste.repository.ProductImagesRepository;
 import com.centafrique.lancelinvestment.user_webiste.repository.ProductSizesRepository;
 import com.centafrique.lancelinvestment.user_webiste.repository.ProductsRepository;
@@ -94,8 +91,11 @@ public class ProductsServiceImpl implements ProductsService, ProductSizesInfo, P
 
     @Override
     public List<ProductSizes> getProductSizes(String productId) {
-        return productSizesRepository.findAll();
+
+        return productSizesRepository.findProductSizesByProductId(productId);
     }
+
+
 
     @Override
     public ProductSizes getProductSize(String productId, double productSize) {
@@ -116,7 +116,7 @@ public class ProductsServiceImpl implements ProductsService, ProductSizesInfo, P
 
     @Override
     public List<ProductImages> getAllProductImages(String productId) {
-        return productImagesRepository.findAll();
+        return productImagesRepository.findProductImagesByProductId(productId);
     }
 
     /**
@@ -207,7 +207,10 @@ public class ProductsServiceImpl implements ProductsService, ProductSizesInfo, P
             List<ProductSizes> productSizesList = getProductSizes(productId);
             List<ProductImages> productImagesList = getAllProductImages(productId);
 
-            ProductDetails productDetails = new ProductDetails(productId,productName, productDescription,productIngredients, productSizesList, productImagesList);
+            System.out.println("-**-*- " + productSizesList);
+
+            ProductDetails productDetails = new ProductDetails(productId,productName, productDescription,productIngredients,
+                    productSizesList, productImagesList);
             productDetailsList.add(productDetails);
         }
 
@@ -236,48 +239,54 @@ public class ProductsServiceImpl implements ProductsService, ProductSizesInfo, P
             return null;
         }
     }
-    public String addToCart(AddToCart addToCart){
+    public ResponseData addToCart(AddToCart addToCart){
 
-        AuthenticationHelper authenticationHelper = new AuthenticationHelper();
-        UserDetails userDetails = authenticationHelper.getAuthDetails(userDetailsServiceImpl);
-        String userId = userDetails.getUserId();
+        if (isUserLoggedIn()){
 
-        String productId = addToCart.getProductId();
-        double productSize = addToCart.getProductSize();
-        int productQuantity = addToCart.getProductQuantity();
+            String productId = addToCart.getProductId();
+            double productSize = addToCart.getProductSize();
+            double productQuantity = addToCart.getProductQuantity();
 
-        ProductSizes productDetails = getProductSize(productId, productSize);
-        if (productDetails != null){
+            ProductSizes productDetails = getProductSize(productId, productSize);
+            if (productDetails != null){
 
-            double productStock = productDetails.getStockNumber();
-            double productNewPrice = productDetails.getNewPrice();
+                double productStock = productDetails.getStockNumber();
+                double productNewPrice = productDetails.getNewPrice();
 
-            if (productStock > 0){
+                if (productStock > 0){
 
-                double totalAmount = productNewPrice * productQuantity;
+                    double totalAmount = productNewPrice * productQuantity;
 
-                CartItems cartItems = new CartItems(userId,productId, productSize, productQuantity,totalAmount);
-                //Add to Cart
-                cartItemsServiceImpl.addCart(cartItems);
-                return "Product added successfully";
+                    CartItems cartItems = new CartItems("userId",productId, productSize, productQuantity,totalAmount);
+                    //Add to Cart
+                    cartItemsServiceImpl.addCart(cartItems);
+                    return new  ResponseData(200, "Product added successfully");
+
+                }else {
+
+                    //Don't add to cart
+                    return new ResponseData(400, "Stock value is 0");
+
+                }
 
             }else {
 
-                //Don't add to cart
-                return "Stock value is 0";
+                return new ResponseData(400, "Adding to cart failed");
 
             }
 
         }else {
 
-            return "Adding to cart failed";
+            return new ResponseData(403, "User is not logged in");
 
         }
 
 
 
 
+    }
 
-
+    boolean isUserLoggedIn(){
+        return SecurityContextHolder.getContext().getAuthentication().getPrincipal() instanceof UserDetails;
     }
 }

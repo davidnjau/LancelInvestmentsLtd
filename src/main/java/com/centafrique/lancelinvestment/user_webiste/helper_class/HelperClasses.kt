@@ -29,5 +29,10 @@ data class DynamicFullRes(
 data class AddToCart(
     val productId: String,
     val productSize: Double,
-    val productQuantity: Int
+    val productQuantity: Double
+)
+
+data class ResponseData(
+    val statusCode: Int,
+    val message: String
 )

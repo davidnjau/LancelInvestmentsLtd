@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Lancel Investment Ltd</title>
+
+    <!-- Font Icon -->
+
+    <!-- Main css -->
+    <link rel="stylesheet" th:href="@{/assets/css/acl.css}">
+
+</head>
+<body>
+
+<div data-th-include="header.html"></div>
+
+<div>
+    <img style="max-height: 130px" class="img-fluid" th:src="@{/assets/blog/assets/img/hero/about_hero.png}" alt="Post 1">
+</div>
+
+
+    <div class="main">
+
+        <!-- Sing in  Form -->
+        <div class="login-page">
+            <div class="form">
+                <form class="register-form">
+                    <input type="text" placeholder="name"/>
+                    <input type="password" placeholder="password"/>
+                    <input type="text" placeholder="email address"/>
+                    <button>create</button>
+                    <p class="message">Already registered? <a href="#">Sign In</a></p>
+                </form>
+                <div class="login-form">
+                    <input type="text" id="emailAddress" placeholder="email address"/>
+                    <input type="password" id="password" placeholder="password"/>
+                    <button class="btn btn-success btn-lg" onclick="loginUser()">login</button>
+                    <p class="message">Not registered? <a href="#">Create an account</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<div data-th-include="footer.html"></div>
+
+<script>
+
+    function loginUser(){
+
+        var emailAddress = document.getElementById("emailAddress").value;
+        var password = document.getElementById("password").value;
+
+        if (emailAddress && password){
+
+            var dataJson = {
+                "username":emailAddress,
+                "password":password,
+            };
+            var postData = JSON.stringify(dataJson);
+
+            $.ajax({
+                type: 'POST',
+                url: "/api/v1/auth/login",
+                data: postData,
+                success: function(response) {
+
+                    new swal(
+                        'Successful Login in',
+                        'You have been logged in successfully.',
+                        'success'
+                    )
+
+                }, error: function (error) {
+                    // alert('error: ' + error);
+
+                    var json = $.parseJSON(error.responseText);
+                    var details = json.error
+
+                    new swal({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: details,
+                    })
+                },
+                contentType: "application/json",
+                dataType: 'json'
+
+            })
+
+
+        }else {
+
+            new swal({
+                title: "error",
+                text: "Check on your email address and password.",
+                icon: "error",
+            });
+
+        }
+
+    }
+
+</script>
+
+
+</body>
+</html>
