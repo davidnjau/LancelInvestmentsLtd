@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
+    <link rel="icon" type="image/png" href="../assets/img/favicon.png">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Lancel Investment Ltd</title>
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
+    <!--     Fonts and icons     -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css"
+          integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700,700i%7CRajdhani:400,600,700"
+          rel="stylesheet">
+    <link rel="stylesheet" type="text/css" th:href="@{/assets/css/loader/loaders.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/assets/css/font-awesome/font-awesome.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/assets/css/bootstrap.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/assets/css/aos/aos.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/assets/css/swiper/swiper.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/assets/css/lightgallery.min.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/assets/css/style.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/assets/css/cart.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/assets/css/responsive.css}" />
+
+</head>
+<body>
+
+<div data-th-include="header.html"></div>
+
+<div>
+    <img style="min-height: 500px" class="img-fluid" src="assets/blog/assets/img/hero/about_hero.png" alt="Post 1">
+</div>
+
+<div class="container px-3 my-5 clearfix">
+    <!-- Shopping cart table -->
+    <div class="card">
+        <div class="card-header">
+            <h2>Shopping Cart</h2>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered m-0">
+                    <thead>
+                    <tr>
+                        <!-- Set columns width -->
+                        <th class="text-center py-3 px-4" style="min-width: 400px;">Product Name &amp; Details</th>
+                        <th class="text-right py-3 px-4" style="width: 100px;">Price</th>
+                        <th class="text-center py-3 px-4" style="width: 120px;">Quantity</th>
+                        <th class="text-right py-3 px-4" style="width: 100px;">Total</th>
+                        <th class="text-center align-middle py-3 px-0" style="width: 40px;"><a href="#" class="shop-tooltip float-none text-light" title="" data-original-title="Clear cart"><i class="ino ion-md-trash"></i></a></th>
+                    </tr>
+                    </thead>
+
+                    <tbody th:each="cartDetails : ${cartDetailsList}">
+
+                    <tr>
+                        <td class="p-4">
+                            <div class="media align-items-center">
+                                <img th:src="@{/assets/shop/assets/img/product_single_07.png}" class="d-block ui-w-40 ui-bordered mr-4" alt="">
+                                <div class="media-body">
+                                    <a href="#" th:text="${cartDetails.productDetails.getProductName()}" class="d-block text-dark">Product 1</a>
+                                </div>
+                            </div>
+                        </td>
+                        <td th:text="${cartDetails.cartData.getProductPrice()}" class="text-right font-weight-semibold align-middle p-4">$57.55</td>
+                        <td th:text="${cartDetails.cartData.getProductQuantity()}" class="align-middle p-4"><input type="text" class="form-control text-center" value="2"></td>
+                        <td th:text="${cartDetails.cartData.getProductPrice()}" class="text-right font-weight-semibold align-middle p-4">$115.1</td>
+                        <td class="text-center align-middle px-0"><a href="#" class="shop-tooltip close float-none text-danger" title="" data-original-title="Remove">×</a></td>
+                    </tr>
+
+                    </tbody>
+                </table>
+            </div>
+            <!-- / Shopping cart table -->
+
+            <div class="d-flex flex-wrap justify-content-between align-items-center pb-4">
+                <div class="mt-4">
+<!--                    <label class="text-muted font-weight-normal">Promocode</label>-->
+<!--                    <input type="text" placeholder="ABC" class="form-control">-->
+                </div>
+                <div class="d-flex">
+                    <div class="text-right mt-4 mr-5">
+<!--                        <label class="text-muted font-weight-normal m-0">Discount</label>-->
+<!--                        <div class="text-large"><strong>$20</strong></div>-->
+                    </div>
+                    <div class="text-right mt-4">
+                        <label class="text-muted font-weight-normal m-0">Total price</label>
+                        <div class="text-large"><strong>Ksh 1164.65</strong></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="float-right">
+                <a href="/shop" type="button" class="btn btn-lg btn-default md-btn-flat mt-2 mr-3">Back to shopping</a>
+                <a href="/checkout" type="button" class="btn btn-lg btn-primary mt-2">Checkout</a>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div data-th-include="footer.html"></div>
+
+</body>
+</html>

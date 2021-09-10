@@ -37,12 +37,12 @@ public class ProductSizes {
     private String sizeUnit;
     private double newPrice;
     private double oldPrice;
-    private double stockNumber;
+    private int stockNumber;
 
     public ProductSizes() {
     }
 
-    public ProductSizes(String productId, double sizeAmount, String sizeUnit, double newPrice, double oldPrice, double stockNumber) {
+    public ProductSizes(String productId, double sizeAmount, String sizeUnit, double newPrice, double oldPrice, int stockNumber) {
         this.productId = productId;
         this.sizeAmount = sizeAmount;
         this.sizeUnit = sizeUnit;
@@ -115,11 +115,11 @@ public class ProductSizes {
         this.oldPrice = oldPrice;
     }
 
-    public double getStockNumber() {
+    public int getStockNumber() {
         return stockNumber;
     }
 
-    public void setStockNumber(double stockNumber) {
+    public void setStockNumber(int stockNumber) {
         this.stockNumber = stockNumber;
     }
 }

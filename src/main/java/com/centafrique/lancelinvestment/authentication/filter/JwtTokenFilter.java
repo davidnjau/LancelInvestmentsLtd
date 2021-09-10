@@ -26,10 +26,13 @@ public class JwtTokenFilter extends OncePerRequestFilter {
         if ( header != null && header.contains( "Bearer" ) ) {
             String[] tokens = header.split( " " );
             if ( tokens.length > 1 ) {
+
                 String jwt = tokens[ 1 ];
+
                 try {
                     Authentication authentication = tokenStore.getAuth( jwt );
                     SecurityContextHolder.getContext().setAuthentication( authentication );
+
                 } catch ( Exception e ) {
                     e.printStackTrace();
                 }

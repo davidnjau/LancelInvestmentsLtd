@@ -315,10 +315,13 @@ https://templatemo.com/tm-559-Bee Keeping-shop
 
         function addCartProducts(productId){
 
+            var accessToken = window.localStorage.getItem('accessToken');
+
             var productSize = $("input:radio[name=radioSizes]:checked").val()
             var productQuantity = document.getElementById('var-value').textContent;
 
             if (productId && productSize !== undefined && productQuantity){
+
 
                 // convert to JSON
                 var dataJson = {
@@ -327,13 +330,12 @@ https://templatemo.com/tm-559-Bee Keeping-shop
                     "productQuantity":productQuantity
                 };
                 var postData = JSON.stringify(dataJson);
-                console.log("--*-*- "+postData)
 
                 $.ajax({
                     type: 'POST',
                     url: "/api/v1/user/products/add-to-cart",
                     headers: {
-                        'Authorization':'Basic xxxxxxxxxxxxx',
+                        'Authorization':'Bearer '+accessToken,
                         'Content-Type':'application/json'
                     },
                     data: postData,

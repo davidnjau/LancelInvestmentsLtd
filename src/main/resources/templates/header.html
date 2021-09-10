@@ -27,6 +27,10 @@
     <link rel="stylesheet" type="text/css" th:href="@{/assets/css/swiper/swiper.css}" />
     <link rel="stylesheet" type="text/css" th:href="@{/assets/css/lightgallery.min.css}" />
     <link rel="stylesheet" type="text/css" th:href="@{/assets/css/style.css}" />
+
+    <link rel="stylesheet" type="text/css" th:href="@{/assets/css/cart.css}" />
+
+
     <link rel="stylesheet" type="text/css" th:href="@{/assets/css/responsive.css}" />
 
 </head>
@@ -58,8 +62,11 @@
                         aria-expanded="false" aria-label="Toggle navigation"><span
                         class="navbar-toggler-icon"></span></button>
                 <a class="login-icon d-sm-none" href="#"><i class="fa fa-user"></i></a>
-                <a class="cart" href="#"><i class="fa fa-shopping-cart"></i></a>
+                <a class="cart" id="cart" href="/cart"><i class="fa fa-shopping-cart"></i></a>
+
             </div>
+
+
             <a class="search-icon d-none d-md-block" href="#"><i class="fa fa-search"></i></a>
             <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
                 <ul class="navbar-nav">
@@ -82,10 +89,30 @@
                 </form>
             </div>
         </nav>
+
+
+
     </div>
+
+
+
+
 </header>
 <!-- Header End -->
 
+
+
+<script>
+
+    (function(){
+
+        $("#cart").on("click", function() {
+            $(".shopping-cart").fadeToggle( "fast");
+        });
+
+    })();
+
+</script>
 
 </body>
 </html>

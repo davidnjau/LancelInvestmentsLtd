@@ -49,8 +49,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/api/v1/auth/**").permitAll()
-                .antMatchers(GET, "/api/v1/user/**").permitAll()
-                .antMatchers( "/**").permitAll()
+                .antMatchers("/api/v1/products/**").permitAll()
+                .antMatchers("/api/v1/products/**").permitAll()
+//                .antMatchers(GET, "/api/v1/user/**").permitAll()
+                .antMatchers( "/").permitAll()
+                .antMatchers( "/login").permitAll()
+                .antMatchers( "/about_us").permitAll()
+                .antMatchers( "/services").permitAll()
+                .antMatchers( "/blog").permitAll()
+                .antMatchers( "/blog-details").permitAll()
+                .antMatchers( "/shop").permitAll()
+                .antMatchers( "/shop-details/**").permitAll()
+                .antMatchers( "/gallery").permitAll()
+                .antMatchers( "/cart").permitAll()
+                .antMatchers( "/checkout").permitAll()
                 .antMatchers(GET, "/assets/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
@@ -64,7 +76,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                           AuthenticationException authException) throws IOException, ServletException {
         response.setContentType( "application/json" );
         response.setStatus(403);
-        response.getWriter().write( "{\"error\": \"User is not Authenticated\"}" );
+        response.getWriter().write( "{\"details\": \"User is not Authenticated\"}" );
     }
 
     @Bean
@@ -90,9 +102,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             String phoneNumber = userDetails.getPhoneNumber();
 
             Map<String, String> tokens = new HashMap<>();
-            tokens.put("access_token", token);
+            tokens.put("accessToken", token);
             tokens.put("userId", userId);
             tokens.put("firstName", firstName);
+            tokens.put("emailAddress", emailAddress);
             tokens.put("lastName", lastName);
             tokens.put("phoneNumber", phoneNumber);
             response.setContentType(APPLICATION_JSON_VALUE);
@@ -110,6 +123,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             throws IOException, ServletException {
         response.setContentType( "application/json" );
         response.setStatus(400);
-        response.getWriter().write( "{\"error\": \"" + exception.getMessage() +"\" }" );
+        response.getWriter().write( "{\"details\": \"" + exception.getMessage() +"\" }" );
     }
 }

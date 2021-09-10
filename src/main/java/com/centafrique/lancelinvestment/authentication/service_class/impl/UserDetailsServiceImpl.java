@@ -9,6 +9,9 @@ import com.centafrique.lancelinvestment.authentication.repository.UserDetailsRep
 import com.centafrique.lancelinvestment.authentication.service_class.service.RoleService;
 import com.centafrique.lancelinvestment.authentication.service_class.service.UserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -127,6 +130,20 @@ public class UserDetailsServiceImpl implements UserDetailsService, RoleService{
 
         return new Results(400, error);
 
+    }
+
+    public UserDetails getLoggedInUser(){
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (!(authentication instanceof AnonymousAuthenticationToken)) {
+
+            String currentEmailAddress = authentication.getName();
+            UserDetails userDetails = getUserDetailsByEmailAddress(currentEmailAddress);
+            return userDetails;
+        }else {
+            return null;
+        }
 
     }
+
 }

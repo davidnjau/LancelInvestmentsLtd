@@ -1,7 +1,12 @@
 package com.centafrique.lancelinvestment.user_webiste.controller;
 
+import com.centafrique.lancelinvestment.authentication.entity.UserDetails;
+import com.centafrique.lancelinvestment.authentication.service_class.impl.UserDetailsServiceImpl;
+import com.centafrique.lancelinvestment.user_webiste.helper_class.CartDetails;
+import com.centafrique.lancelinvestment.user_webiste.helper_class.DynamicAnyRes;
 import com.centafrique.lancelinvestment.user_webiste.helper_class.DynamicFullRes;
 import com.centafrique.lancelinvestment.user_webiste.helper_class.ProductDetails;
+import com.centafrique.lancelinvestment.user_webiste.service_data.service_impl.CartItemsServiceImpl;
 import com.centafrique.lancelinvestment.user_webiste.service_data.service_impl.ProductsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,6 +22,12 @@ public class WebController {
 
     @Autowired
     private ProductsServiceImpl productsServiceImpl;
+
+    @Autowired
+    private CartItemsServiceImpl cartItemsServiceImpl;
+
+    @Autowired
+    private UserDetailsServiceImpl userDetailsServiceImpl;
 
     @RequestMapping(value ="/")
     public String getHome(){
@@ -47,6 +58,11 @@ public class WebController {
         return "blog_details";
     }
 
+    @RequestMapping(value ="/checkout")
+    public String getCheckout(){
+        return "check_out";
+    }
+
     @RequestMapping(value = "/shop")
     public ModelAndView getShop(){
 
@@ -71,21 +87,43 @@ public class WebController {
     public ModelAndView getProductDetail(@PathVariable("productId") String productId){
 
         ProductDetails productDetails = productsServiceImpl.getProductDetails(productId);
+        ModelAndView modelAndView = new ModelAndView("shop_single");
         if (productDetails != null){
 
-            ModelAndView modelAndView = new ModelAndView("shop_single");
             modelAndView.addObject("productDetails", productDetails);
-            return modelAndView;
 
         }else {
 
-            ModelAndView modelAndView = new ModelAndView("shop_single");
-//            modelAndView.addObject("productDetails", productDetails);
-            return modelAndView;
+            //            modelAndView.addObject("productDetails", productDetails);
 
+        }
+        return modelAndView;
+
+
+    }
+
+    @RequestMapping(value = "/cart")
+    public ModelAndView getCart(){
+        ModelAndView modelAndView = new ModelAndView("cart");
+
+        UserDetails userDetails = userDetailsServiceImpl.getLoggedInUser();
+        if (userDetails != null) {
+
+            String userId = userDetails.getUserId();
+            DynamicAnyRes dynamicAnyRes = cartItemsServiceImpl.getMyCartItems(userId);
+            List<CartDetails> cartDetailsList = dynamicAnyRes.getResults();
+            modelAndView.addObject("cartDetailsList", cartDetailsList);
+
+
+        }else {
+            DynamicAnyRes dynamicAnyRes = cartItemsServiceImpl.getAllCartItems();
+            List<CartDetails> cartDetailsList = dynamicAnyRes.getResults();
+            modelAndView.addObject("cartDetailsList", cartDetailsList);
+            modelAndView.addObject("totalPrice", cartDetailsList);
         }
 
 
+        return modelAndView;
     }
 
     @RequestMapping(value = "/shop-details")

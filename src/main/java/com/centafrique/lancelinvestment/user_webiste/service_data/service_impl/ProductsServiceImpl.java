@@ -19,6 +19,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -136,7 +137,7 @@ public class ProductsServiceImpl implements ProductsService, ProductSizesInfo, P
 
         Formatter formatter = new Formatter();
         Products productsDataDetails = formatter.productDetails(productsRepository, products);
-//        Products productsDataDetails = addProduct(products);
+
         if (productsDataDetails != null){
 
             String productId = productsDataDetails.getId();
@@ -144,14 +145,18 @@ public class ProductsServiceImpl implements ProductsService, ProductSizesInfo, P
             List<ProductSizes> resProductSizesList = new ArrayList<>();
             for (ProductSizes sizes : productSizesList) {
 
+                System.out.println("-*-*- " + sizes.getStockNumber());
+
+
                 double sizeAmount = sizes.getSizeAmount();
                 String sizeUnit = sizes.getSizeUnit();
 
                 double newPrice = sizes.getNewPrice();
                 double oldPrice = sizes.getOldPrice();
-                double stockAmount = sizes.getStockNumber();
+                int stockAmount = sizes.getStockNumber();
 
-                ProductSizes productSizes = new ProductSizes(productId, sizeAmount, sizeUnit, newPrice, oldPrice, stockAmount);
+                ProductSizes productSizes = new ProductSizes(productId, sizeAmount,
+                        sizeUnit, newPrice, oldPrice, stockAmount);
                 ProductSizes resProductSizes = addProductSizes(productSizes);
                 resProductSizesList.add(resProductSizes);
 
@@ -239,54 +244,49 @@ public class ProductsServiceImpl implements ProductsService, ProductSizesInfo, P
             return null;
         }
     }
-    public ResponseData addToCart(AddToCart addToCart){
+    public ResponseData addToCart(AddToCart addToCart, String userId){
 
-        if (isUserLoggedIn()){
+        String productId = addToCart.getProductId();
+        double productSize = addToCart.getProductSize();
+        double productQuantity = addToCart.getProductQuantity();
 
-            String productId = addToCart.getProductId();
-            double productSize = addToCart.getProductSize();
-            double productQuantity = addToCart.getProductQuantity();
+        ProductSizes productDetails = getProductSize(productId, productSize);
+        if (productDetails != null){
 
-            ProductSizes productDetails = getProductSize(productId, productSize);
-            if (productDetails != null){
+            double productStock = productDetails.getStockNumber();
+            double productNewPrice = productDetails.getNewPrice();
 
-                double productStock = productDetails.getStockNumber();
-                double productNewPrice = productDetails.getNewPrice();
+            if (productStock > 0){
 
-                if (productStock > 0){
-
-                    double totalAmount = productNewPrice * productQuantity;
-
-                    CartItems cartItems = new CartItems("userId",productId, productSize, productQuantity,totalAmount);
-                    //Add to Cart
-                    cartItemsServiceImpl.addCart(cartItems);
-                    return new  ResponseData(200, "Product added successfully");
-
-                }else {
-
-                    //Don't add to cart
-                    return new ResponseData(400, "Stock value is 0");
-
-                }
+                double totalAmount = productNewPrice * productQuantity;
+//
+                CartItems cartItems = new CartItems(userId,productId, productSize, productQuantity,totalAmount);
+//                //Add to Cart
+                cartItemsServiceImpl.addCart(cartItems);
+                return new  ResponseData(200, "Product added successfully");
 
             }else {
 
-                return new ResponseData(400, "Adding to cart failed");
+                //Don't add to cart
+                return new ResponseData(400, "Stock value is 0");
 
             }
 
         }else {
 
-            return new ResponseData(403, "User is not logged in");
+            return new ResponseData(400, "Adding to cart failed");
 
         }
 
 
 
 
+
+
+
+
+
     }
 
-    boolean isUserLoggedIn(){
-        return SecurityContextHolder.getContext().getAuthentication().getPrincipal() instanceof UserDetails;
-    }
+
 }

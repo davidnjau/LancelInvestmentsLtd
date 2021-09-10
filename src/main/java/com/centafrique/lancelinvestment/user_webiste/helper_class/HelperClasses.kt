@@ -25,6 +25,22 @@ data class DynamicFullRes(
     val previousPage:String?,
     val results: List<ProductDetails>
 )
+data class DynamicAnyRes(
+    val count: Int,
+    val nextPage: String?,
+    val previousPage:String?,
+    val results: List<CartDetails>
+)
+
+data class CartDetails(
+    val productDetails: ProductDetails,
+    val cartData: CartData
+)
+
+data class CartData(
+    val productPrice: Double,
+    val productQuantity: Double,
+    val productSize: Double)
 
 data class AddToCart(
     val productId: String,
