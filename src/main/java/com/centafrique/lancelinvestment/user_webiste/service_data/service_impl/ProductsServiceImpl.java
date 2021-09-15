@@ -23,6 +23,7 @@ import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -124,6 +125,17 @@ public class ProductsServiceImpl implements ProductsService, ProductSizesInfo, P
      * Functionality
      */
 
+    public Products addProductDataDetails(ProductDataDetails productDetails){
+
+        String productName = productDetails.getProductName();
+        String productDescription = productDetails.getProductDescription();
+        String productIngredients = productDetails.getProductIngredients();
+
+        Products products = new Products(productName, productDescription, productIngredients);
+        return productsRepository.save(products);
+
+    }
+
     public ProductDetails addProductDetails(ProductDetails productDetails){
 
         String productName = productDetails.getProductName();
@@ -144,9 +156,6 @@ public class ProductsServiceImpl implements ProductsService, ProductSizesInfo, P
 
             List<ProductSizes> resProductSizesList = new ArrayList<>();
             for (ProductSizes sizes : productSizesList) {
-
-                System.out.println("-*-*- " + sizes.getStockNumber());
-
 
                 double sizeAmount = sizes.getSizeAmount();
                 String sizeUnit = sizes.getSizeUnit();
@@ -169,7 +178,15 @@ public class ProductsServiceImpl implements ProductsService, ProductSizesInfo, P
 
                 ProductImages images = new ProductImages(imagePath, productId);
                 ProductImages resProdImages = addProductImages(images);
-                resProductImagesList.add(resProdImages);
+
+                String fileDownloadUri = ServletUriComponentsBuilder
+                        .fromCurrentContextPath()
+                        .path("/files/")
+                        .path(resProdImages.getImagePath())
+                        .toUriString();
+
+                ProductImages savedProductImages = new ProductImages(fileDownloadUri, productId);
+                resProductImagesList.add(savedProductImages);
             }
 
             return new ProductDetails(productId,productName, productDescription, productIngredients, resProductSizesList, resProductImagesList);
@@ -211,8 +228,6 @@ public class ProductsServiceImpl implements ProductsService, ProductSizesInfo, P
 
             List<ProductSizes> productSizesList = getProductSizes(productId);
             List<ProductImages> productImagesList = getAllProductImages(productId);
-
-            System.out.println("-**-*- " + productSizesList);
 
             ProductDetails productDetails = new ProductDetails(productId,productName, productDescription,productIngredients,
                     productSizesList, productImagesList);

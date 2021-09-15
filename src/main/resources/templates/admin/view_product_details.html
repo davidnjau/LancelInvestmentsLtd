@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Lancel Investment Ltd</title>
+
+    <!-- Font Icon -->
+    <link rel="stylesheet" th:href="@{/fonts/material-icon/css/material-design-iconic-font.min.css}">
+    <link rel="stylesheet" th:href="@{/vendor/nouislider/nouislider.min.css}">
+
+    <!-- Main css -->
+    <link rel="stylesheet" th:href="@{/assets/admin/assets/table/css/style.css}">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</head>
+<body>
+
+<div class="container-scroller">
+
+    <nav class="navbar default-layout col-lg-12 col-12 p-0 fixed-top d-flex align-items-top flex-row">
+        <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-start">
+            <div class="me-3">
+                <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-bs-toggle="minimize">
+                    <span class="icon-menu"></span>
+                </button>
+            </div>
+            <div>
+                <a class="navbar-brand brand-logo" href="../../index.html">
+                    <img src="../../images/logo.svg" alt="logo" />
+                </a>
+                <a class="navbar-brand brand-logo-mini" href="../../index.html">
+                    <img src="../../images/logo-mini.svg" alt="logo" />
+                </a>
+            </div>
+        </div>
+        <div class="navbar-menu-wrapper d-flex align-items-top">
+            <ul class="navbar-nav">
+                <li class="nav-item font-weight-semibold d-none d-lg-block ms-0">
+                    <h1 class="welcome-text">Good Morning, <span class="text-black fw-bold">John Doe</span></h1>
+                </li>
+            </ul>
+
+            <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-bs-toggle="offcanvas">
+                <span class="mdi mdi-menu"></span>
+            </button>
+        </div>
+    </nav>
+
+    <div class="container-fluid page-body-wrapper">
+
+        <div data-th-include="admin/sidebar.html"></div>
+
+        <div class="main-panel">
+            <div class="content-wrapper">
+                <div class="row">
+
+                    <div class="col-lg-12 grid-margin stretch-card">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title">Product Details</h4>
+                                <div class="table-responsive">
+                                    <table class="table table-striped">
+                                        <thead>
+                                        <tr>
+                                            <th>
+                                                Title
+                                            </th>
+                                            <th>
+                                                Description
+                                            </th>
+
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <td>Product Name</td>
+                                            <td th:text="${productDetails.getProductName()}">Honey Jar</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Product Description </td>
+                                            <td th:text="${productDetails.getProductDescription()}">Some long text about the product. It might Span and should resize to the next line.</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Product Ingredients</td>
+                                            <td th:text="${productDetails.getProductIngredients()}"> This is just some text separated by commas.</td>
+                                        </tr>
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class=" grid-margin stretch-card">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title">Product Images</h4>
+
+                                <div class="row">
+
+                                    <div class="col-lg-4">
+                                        <img class="card-img img-fluid" th:src="${productDetails.getProductImages().get(0).getImagePath()}" alt="Product Image 1" width="300" height="333">
+                                        <button class="file-upload-browse btn btn-primary" type="button">Upload</button>
+
+
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <img class="card-img img-fluid" th:src="${productDetails.getProductImages().get(1).getImagePath()}" alt="Product Image 1" width="300" height="333">
+                                        <button class="file-upload-browse btn btn-primary" type="button">Upload</button>
+
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <img class="card-img img-fluid" th:src="${productDetails.getProductImages().get(2).getImagePath()}" alt="Product Image 1" width="300" height="333">
+                                        <button class="file-upload-browse btn btn-primary" type="button">Upload</button>
+
+                                    </div>
+
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class=" grid-margin stretch-card">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title">Product Sizes and Prices</h4>
+
+                                <div class="table-responsive">
+                                    <table class="table">
+                                        <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Size</th>
+                                            <th>Unit</th>
+                                            <th>New Price	</th>
+                                            <th>Old Price	</th>
+                                            <th>Stock #</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody >
+                                        <tr>
+                                            <td>1</td>
+                                            <td>10</td>
+                                            <td>g</td>
+                                            <td>Kshs 1000</td>
+                                            <td>Kshs 500</td>
+                                            <td>10</td>
+                                        </tr>
+                                        <tr>
+                                            <td>1</td>
+                                            <td>10</td>
+                                            <td>g</td>
+                                            <td>Kshs 1000</td>
+                                            <td>Kshs 500</td>
+                                            <td>10</td>
+                                        </tr>
+                                        <tr>
+                                            <td>1</td>
+                                            <td>10</td>
+                                            <td>g</td>
+                                            <td>Kshs 1000</td>
+                                            <td>Kshs 500</td>
+                                            <td>10</td>
+                                        </tr>
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                </div>
+            </div>
+            <!-- content-wrapper ends -->
+            <!-- partial:../../partials/_footer.html -->
+            <footer class="footer">
+                <div class="d-sm-flex justify-content-center justify-content-sm-between">
+                    <span class="text-muted text-center text-sm-left d-block d-sm-inline-block"> <a href="https://www.centafrique.com/" target="_blank">Lancel admin dashboard</a> from Centafrique.</span>
+                    <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Copyright © 2021. All rights reserved.</span>
+                </div>
+            </footer>
+            <!-- partial -->
+        </div>
+    </div>
+
+
+</div>
+
+<script th:src="@{/assets/admin/assets/js/file-upload.js}"></script>
+
+</body>
+</html>

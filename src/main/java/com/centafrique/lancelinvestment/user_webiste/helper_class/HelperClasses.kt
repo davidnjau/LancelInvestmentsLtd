@@ -2,7 +2,35 @@ package com.centafrique.lancelinvestment.user_webiste.helper_class
 
 import com.centafrique.lancelinvestment.user_webiste.entity.ProductImages
 import com.centafrique.lancelinvestment.user_webiste.entity.ProductSizes
+import org.springframework.web.multipart.MultipartFile
 import javax.print.attribute.standard.PrintQuality
+
+
+data class ProductDataDetails(
+    val productName: String,
+    val productDescription: String,
+    val productIngredients: String,
+)
+
+data class ProductDisplay(
+
+    val index: String,
+    val productId:String?,
+    val productName: String,
+    val sizeAmount: String,
+    val productPrice: String,
+
+)
+
+data class UploadProduct(
+    val productId:String?,
+    val productName: String,
+    val productDescription: String,
+    val productIngredients: String,
+
+    val productSizes : List<ProductSizes>,
+    val fileList : List<FileImages>
+)
 
 data class ProductDetails(
 
@@ -12,7 +40,13 @@ data class ProductDetails(
     val productIngredients: String,
 
     val productSizes : List<ProductSizes>,
-    val productImages : List<ProductImages>,
+    val productImages : List<ProductImages>
+)
+
+data class FileImages(
+    val image1: MultipartFile,
+    val image2: MultipartFile,
+    val image3: MultipartFile
 )
 
 data class DynamicRes(

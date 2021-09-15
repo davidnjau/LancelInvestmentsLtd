@@ -106,7 +106,8 @@ https://templatemo.com/tm-559-Bee Keeping-shop
             <div class="row">
                 <div class="col-lg-5 mt-5">
                     <div class="card mb-3">
-                        <img class="card-img img-fluid" th:src="@{/assets/shop/assets/img/product_single_10.png}" alt="Card image cap" id="product-detail">
+<!--                        <img class="card-img img-fluid" th:src="@{/assets/shop/assets/img/product_single_10.png}" alt="Card image cap" id="product-detail">-->
+                        <img class="card-img img-fluid" th:src="${productDetails.getProductImages().get(0).getImagePath()}" alt="Card image cap" id="product-detail">
                     </div>
                     <div class="row">
                         <!--Start Controls-->
@@ -127,66 +128,23 @@ https://templatemo.com/tm-559-Bee Keeping-shop
                                     <div class="row">
                                         <div class="col-4">
                                             <a href="#">
-                                                <img class="card-img img-fluid" th:src="@{/assets/shop/assets/img/product_single_01.png}" alt="Product Image 1">
+                                                <img class="card-img img-fluid" th:src="${productDetails.getProductImages().get(0).getImagePath()}" alt="Product Image 1">
                                             </a>
                                         </div>
                                         <div class="col-4">
                                             <a href="#">
-                                                <img class="card-img img-fluid" th:src="@{/assets/shop/assets/img/product_single_02.png}" alt="Product Image 2">
+                                                <img class="card-img img-fluid" th:src="${productDetails.getProductImages().get(1).getImagePath()}" alt="Product Image 2">
                                             </a>
                                         </div>
                                         <div class="col-4">
                                             <a href="#">
-                                                <img class="card-img img-fluid" th:src="@{/assets/shop/assets/img/product_single_03.png}" alt="Product Image 3">
+                                                <img class="card-img img-fluid" th:src="${productDetails.getProductImages().get(2).getImagePath()}" alt="Product Image 3">
                                             </a>
                                         </div>
                                     </div>
                                 </div>
                                 <!--/.First slide-->
 
-                                <!--Second slide-->
-                                <div class="carousel-item">
-                                    <div class="row">
-                                        <div class="col-4">
-                                            <a href="#">
-                                                <img class="card-img img-fluid" th:src="@{/assets/shop/assets/img/product_single_04.png}" alt="Product Image 4">
-                                            </a>
-                                        </div>
-                                        <div class="col-4">
-                                            <a href="#">
-                                                <img class="card-img img-fluid" th:src="@{/assets/shop/assets/img/product_single_05.png}" alt="Product Image 5">
-                                            </a>
-                                        </div>
-                                        <div class="col-4">
-                                            <a href="#">
-                                                <img class="card-img img-fluid" th:src="@{/assets/shop/assets/img/product_single_06.png}" alt="Product Image 6">
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!--/.Second slide-->
-
-                                <!--Third slide-->
-                                <div class="carousel-item">
-                                    <div class="row">
-                                        <div class="col-4">
-                                            <a href="#">
-                                                <img class="card-img img-fluid" th:src="@{/assets/shop/assets/img/product_single_07.png}" alt="Product Image 7">
-                                            </a>
-                                        </div>
-                                        <div class="col-4">
-                                            <a href="#">
-                                                <img class="card-img img-fluid" th:src="@{/assets/shop/assets/img/product_single_08.png}" alt="Product Image 8">
-                                            </a>
-                                        </div>
-                                        <div class="col-4">
-                                            <a href="#">
-                                                <img class="card-img img-fluid" th:src="@{/assets/shop/assets/img/product_single_09.png}" alt="Product Image 9">
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!--/.Third slide-->
                             </div>
                             <!--End Slides-->
                         </div>
