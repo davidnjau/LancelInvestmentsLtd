@@ -144,30 +144,15 @@
                                         </tr>
                                         </thead>
                                         <tbody >
-                                        <tr>
+                                        <tr th:each="productDetailsSizes : ${productDetails.productSizes}">
                                             <td>1</td>
-                                            <td>10</td>
-                                            <td>g</td>
-                                            <td>Kshs 1000</td>
-                                            <td>Kshs 500</td>
-                                            <td>10</td>
+                                            <td th:text="${productDetailsSizes.getSizeAmount()}">10</td>
+                                            <td th:text="${productDetailsSizes.getSizeUnit()}">g</td>
+                                            <td th:text="${productDetailsSizes.getNewPrice()}">Kshs 1000</td>
+                                            <td th:text="${productDetailsSizes.getOldPrice()}">Kshs 500</td>
+                                            <td th:text="${productDetailsSizes.getStockNumber()}">10</td>
                                         </tr>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>10</td>
-                                            <td>g</td>
-                                            <td>Kshs 1000</td>
-                                            <td>Kshs 500</td>
-                                            <td>10</td>
-                                        </tr>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>10</td>
-                                            <td>g</td>
-                                            <td>Kshs 1000</td>
-                                            <td>Kshs 500</td>
-                                            <td>10</td>
-                                        </tr>
+
 
                                         </tbody>
                                     </table>

@@ -160,10 +160,7 @@ public class WebController {
 
     }
 
-//    @RequestMapping(value = "/admin/view-products")
-//    public String viewProducts(){
-//        return "admin/products";
-//    }
+
 
     @RequestMapping(value = "/admin/add-product")
     public String addProducts(){
@@ -249,4 +246,5 @@ public class WebController {
     public String viewAdminOrderDetails(){
         return "admin/view_orders_details";
     }
+
 }
