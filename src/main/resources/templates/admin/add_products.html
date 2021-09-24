@@ -478,10 +478,7 @@
     function getSizes(){
 
         let productId = window.localStorage.getItem('productId');
-
-
         $.ajax({
-
             type: 'GET',
             url: "/api/v1/products/view_sizes/" + productId,
             success: function(response) {

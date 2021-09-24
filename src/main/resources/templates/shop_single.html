@@ -164,7 +164,7 @@ https://templatemo.com/tm-559-Bee Keeping-shop
                     <div class="card">
                         <div class="card-body">
                             <h1 class="h2" th:text="${productDetails.getProductName()}"></h1>
-                            <p class="h3 py-2">Ksh25.00</p>
+                            <p class="h3 py-2" id="priceAmount"></p>
 
                             <h6>Description:</h6>
                             <p th:text="${productDetails.getProductDescription()}"></p>
@@ -178,7 +178,12 @@ https://templatemo.com/tm-559-Bee Keeping-shop
 
                                 <input type="radio" th:id="productSize"
                                        name="radioSizes"
+                                       th:attr="onclick=|setPrices('${productSizes.newPrice}')|"
                                        th:value="${productSizes.getSizeAmount()}">
+
+<!--                                <script>-->
+<!--                                    document.getElementById("priceAmount").innerHTML = "New text!";-->
+<!--                                </script>-->
 
                                 <label th:for="${productSizes.getSizeAmount()}"
                                        th:text="${productSizes.getSizeAmount()} + ${ productSizes.getSizeUnit()}"></label><br>
@@ -270,6 +275,10 @@ https://templatemo.com/tm-559-Bee Keeping-shop
 
     <!-- SubmitToCart -->
     <script>
+
+        function setPrices(productPrice){
+            document.getElementById("priceAmount").innerHTML = "Kshs " + productPrice;
+        }
 
         function addCartProducts(productId){
 

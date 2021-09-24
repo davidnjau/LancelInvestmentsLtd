@@ -68,6 +68,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers( "/checkout").permitAll()
                 .antMatchers(GET, "/assets/**").permitAll()
                 .anyRequest().authenticated()
+//                .and().formLogin().successHandler(successHandler).loginPage("/login").permitAll().and().logout().permitAll()
                 .and()
                 .exceptionHandling()
                 .authenticationEntryPoint( this::commence )

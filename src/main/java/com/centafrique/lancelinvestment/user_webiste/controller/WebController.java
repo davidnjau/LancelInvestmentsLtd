@@ -102,28 +102,33 @@ public class WebController {
 
     }
 
+//    @RequestMapping(value = "/cart")
+//    public ModelAndView getCart(){
+//        ModelAndView modelAndView = new ModelAndView("cart");
+//
+//        UserDetails userDetails = userDetailsServiceImpl.getLoggedInUser();
+//        if (userDetails != null) {
+//
+//            String userId = userDetails.getUserId();
+//            DynamicAnyRes dynamicAnyRes = cartItemsServiceImpl.getMyCartItems(userId);
+//            List<CartDetails> cartDetailsList = dynamicAnyRes.getResults();
+//            modelAndView.addObject("cartDetailsList", cartDetailsList);
+//
+//
+//        }else {
+//            DynamicAnyRes dynamicAnyRes = cartItemsServiceImpl.getAllCartItems();
+//            List<CartDetails> cartDetailsList = dynamicAnyRes.getResults();
+//            modelAndView.addObject("cartDetailsList", cartDetailsList);
+//            modelAndView.addObject("totalPrice", cartDetailsList);
+//        }
+//
+//
+//        return modelAndView;
+//    }
+
     @RequestMapping(value = "/cart")
-    public ModelAndView getCart(){
-        ModelAndView modelAndView = new ModelAndView("cart");
-
-        UserDetails userDetails = userDetailsServiceImpl.getLoggedInUser();
-        if (userDetails != null) {
-
-            String userId = userDetails.getUserId();
-            DynamicAnyRes dynamicAnyRes = cartItemsServiceImpl.getMyCartItems(userId);
-            List<CartDetails> cartDetailsList = dynamicAnyRes.getResults();
-            modelAndView.addObject("cartDetailsList", cartDetailsList);
-
-
-        }else {
-            DynamicAnyRes dynamicAnyRes = cartItemsServiceImpl.getAllCartItems();
-            List<CartDetails> cartDetailsList = dynamicAnyRes.getResults();
-            modelAndView.addObject("cartDetailsList", cartDetailsList);
-            modelAndView.addObject("totalPrice", cartDetailsList);
-        }
-
-
-        return modelAndView;
+    public String getCart(){
+        return "cart";
     }
 
     @RequestMapping(value = "/shop-details")
