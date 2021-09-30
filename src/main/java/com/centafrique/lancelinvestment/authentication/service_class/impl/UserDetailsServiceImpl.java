@@ -11,17 +11,18 @@ import com.centafrique.lancelinvestment.authentication.service_class.service.Use
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 @Transactional
-public class UserDetailsServiceImpl implements UserDetailsService, RoleService{
+public class UserDetailsServiceImpl implements UserDetailsService, RoleService, org.springframework.security.core.userdetails.UserDetails {
 
     @Autowired
     private UserDetailsRepository userDetailsRepository;
@@ -94,6 +95,12 @@ public class UserDetailsServiceImpl implements UserDetailsService, RoleService{
         return userDetailsRepository.save(userDetails);
     }
 
+    public UserDetails getUserDetails(String userId){
+
+        return userDetailsRepository.getById(userId);
+
+    }
+
     public Results registerUser(UserDetails userDetails){
 
         String error = "";
@@ -138,12 +145,56 @@ public class UserDetailsServiceImpl implements UserDetailsService, RoleService{
         if (!(authentication instanceof AnonymousAuthenticationToken)) {
 
             String currentEmailAddress = authentication.getName();
-            UserDetails userDetails = getUserDetailsByEmailAddress(currentEmailAddress);
-            return userDetails;
+            return getUserDetailsByEmailAddress(currentEmailAddress);
         }else {
             return null;
         }
 
     }
 
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+
+        UserDetails user = getLoggedInUser();
+        Set<Role> roles = (Set<Role>) user.getRolesCollection();
+        List<SimpleGrantedAuthority> authorities = new ArrayList<>();
+
+        for (Role role : roles) {
+            authorities.add(new SimpleGrantedAuthority(role.getName()));
+        }
+        return authorities;
+
+    }
+
+
+
+    @Override
+    public String getPassword() {
+        return null;
+    }
+
+    @Override
+    public String getUsername() {
+        return null;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return false;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return false;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return false;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return false;
+    }
 }

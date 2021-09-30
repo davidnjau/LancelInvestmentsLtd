@@ -2,6 +2,7 @@ package com.centafrique.lancelinvestment.user_webiste.controller;
 
 import com.centafrique.lancelinvestment.authentication.entity.UserDetails;
 import com.centafrique.lancelinvestment.authentication.service_class.impl.UserDetailsServiceImpl;
+import com.centafrique.lancelinvestment.storage.FileStorageService;
 import com.centafrique.lancelinvestment.user_webiste.entity.FileData;
 import com.centafrique.lancelinvestment.user_webiste.entity.ProductImages;
 import com.centafrique.lancelinvestment.user_webiste.entity.ProductSizes;
@@ -16,13 +17,17 @@ import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -43,8 +48,10 @@ public class ProductController {
     private UserDetailsServiceImpl userDetailsServiceImpl;
 
     @Autowired
-    private FilesStorageServiceImpl filesStorageService;
+    private FilesStorageServiceImpl filesStorageServiceImpl;
 
+    @Autowired
+    private FileStorageService fileStorageService;
 
     @RequestMapping(value = "/api/v1/products/add_products_details", method = RequestMethod.POST)
     public ResponseEntity addProductDetails(@RequestBody ProductDataDetails productDataDetails){
@@ -69,20 +76,25 @@ public class ProductController {
 
         try {
 
-            filesStorageService.save(file1);
-            String url1 = MvcUriComponentsBuilder
-                    .fromMethodName(ProductController.class,
-                            "getFile", file1.getOriginalFilename()).build().toString();
+//            filesStorageServiceImpl.save(file1);
+//            String url1 = MvcUriComponentsBuilder
+//                    .fromMethodName(ProductController.class,
+//                            "getFile", file1.getOriginalFilename()).build().toString();
+//
+//            filesStorageServiceImpl.save(file2);
+//            String url2 = MvcUriComponentsBuilder
+//                    .fromMethodName(ProductController.class,
+//                            "getFile", file2.getOriginalFilename()).build().toString();
+//
+//            filesStorageServiceImpl.save(file3);
+//            String url3 = MvcUriComponentsBuilder
+//                    .fromMethodName(ProductController.class,
+//                            "getFile", file3.getOriginalFilename()).build().toString();
 
-            filesStorageService.save(file2);
-            String url2 = MvcUriComponentsBuilder
-                    .fromMethodName(ProductController.class,
-                            "getFile", file2.getOriginalFilename()).build().toString();
+            String url1 = uploadSingleFile(file1);
+            String url2 = uploadSingleFile(file2);
+            String url3 = uploadSingleFile(file3);
 
-            filesStorageService.save(file3);
-            String url3 = MvcUriComponentsBuilder
-                    .fromMethodName(ProductController.class,
-                            "getFile", file3.getOriginalFilename()).build().toString();
 
             List<String> imageIdList = new ArrayList<>(Arrays.asList(url1, url2, url3));
             List<ProductImages> productImagesList = new ArrayList<>();
@@ -107,24 +119,40 @@ public class ProductController {
 
     }
 
-    @GetMapping("/files")
-    public ResponseEntity<List<FileData>> getListFiles() {
-        List<FileData> fileInfos = filesStorageService.loadAll().map(path -> {
-            String filename = path.getFileName().toString();
-            String url = MvcUriComponentsBuilder
-                    .fromMethodName(ProductController.class, "getFile", path.getFileName().toString()).build().toString();
+    public String uploadSingleFile(MultipartFile file) {
 
-            return new FileData(filename, url);
-        }).collect(Collectors.toList());
+        String fileName = fileStorageService.storeFile(file);
+        String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
+                .path("/download-file/")
+                .path(fileName)
+                .toUriString();
 
-        return ResponseEntity.status(HttpStatus.OK).body(fileInfos);
+        return fileDownloadUri;
     }
-    @GetMapping("/files/{filename:.+}")
-    @ResponseBody
-    public ResponseEntity<Resource> getFile(@PathVariable String filename) {
-        Resource file = filesStorageService.load(filename);
+
+
+    @GetMapping("/download-file/{fileName:.+}")
+    public ResponseEntity<Resource> downloadFile(@PathVariable String fileName, HttpServletRequest request) {
+        // Load file as Resource
+        Resource resource = fileStorageService.loadFileAsResource(fileName);
+
+        // Try to determine file's content type
+        String contentType = null;
+        try {
+            contentType = request.getServletContext().getMimeType(resource.getFile().getAbsolutePath());
+        } catch (IOException ex) {
+            System.out.print("Could not determine file type.");
+        }
+
+        // Fallback to the default content type if type could not be determined
+        if(contentType == null) {
+            contentType = "application/octet-stream";
+        }
+
         return ResponseEntity.ok()
-                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + file.getFilename() + "\"").body(file);
+                .contentType(MediaType.parseMediaType(contentType))
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + resource.getFilename() + "\"")
+                .body(resource);
     }
 
 

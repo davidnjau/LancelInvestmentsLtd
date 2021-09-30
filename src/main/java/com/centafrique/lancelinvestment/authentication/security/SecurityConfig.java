@@ -1,14 +1,17 @@
 package com.centafrique.lancelinvestment.authentication.security;
 
+import com.centafrique.lancelinvestment.authentication.entity.Role;
 import com.centafrique.lancelinvestment.authentication.entity.UserDetails;
 import com.centafrique.lancelinvestment.authentication.filter.JwtTokenAuthenticationFilter;
 import com.centafrique.lancelinvestment.authentication.filter.JwtTokenFilter;
 import com.centafrique.lancelinvestment.authentication.filter.JwtTokenStore;
 import com.centafrique.lancelinvestment.authentication.service_class.impl.UserDetailsServiceImpl;
+import com.centafrique.lancelinvestment.user_webiste.helper_class.LoginResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -21,8 +24,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.stream.Collectors;
 
 import static org.springframework.http.HttpMethod.GET;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
@@ -37,6 +39,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private UserDetailsServiceImpl userDetailsServiceImpl;
 
+
     public SecurityConfig(JwtTokenStore jwtTokenStore, JwtTokenFilter jwtTokenFilter ) {
         this.jwtTokenStore = jwtTokenStore;
         this.jwtTokenFilter = jwtTokenFilter;
@@ -48,27 +51,23 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.addFilterBefore( jwtTokenFilter, JwtTokenAuthenticationFilter.class );
         http.csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/api/v1/auth/**").permitAll()
-                .antMatchers("/api/v1/products/**").permitAll()
-                .antMatchers("/api/v1/products/**").permitAll()
-                .antMatchers("/admin/**").permitAll()
-                .antMatchers("/files/**").permitAll()
-                .antMatchers("/user-photos/**").permitAll()
+//                .antMatchers("/api/v1/products/**").permitAll()
+//                .antMatchers("/api/v1/products/**").permitAll()
+//                .antMatchers("/files/**").permitAll()
+                .antMatchers("/download-file/**").permitAll()
+//                .antMatchers("/user-photos/**").permitAll()
 //                .antMatchers(GET, "/api/v1/user/**").permitAll()
-                .antMatchers( "/").permitAll()
-                .antMatchers( "/login").permitAll()
-                .antMatchers( "/about_us").permitAll()
-                .antMatchers( "/services").permitAll()
-                .antMatchers( "/blog").permitAll()
-                .antMatchers( "/blog-details").permitAll()
-                .antMatchers( "/shop").permitAll()
-                .antMatchers( "/shop-details/**").permitAll()
-                .antMatchers( "/gallery").permitAll()
-                .antMatchers( "/cart").permitAll()
-                .antMatchers( "/checkout").permitAll()
+                .antMatchers("/api/v1/auth/**").permitAll()
+                .antMatchers(GET, "/admin/**").permitAll()
+//                .antMatchers(GET, "/api/v1/blogs/**").permitAll()
+                .antMatchers(
+                        "/", "/login",  "/about_us", "/services", "/blog",
+                        "/blog-details/**", "/shop", "/shop-details/**", "/gallery", "/cart",
+                        "/checkout").permitAll()
                 .antMatchers(GET, "/assets/**").permitAll()
                 .anyRequest().authenticated()
-//                .and().formLogin().successHandler(successHandler).loginPage("/login").permitAll().and().logout().permitAll()
+//                .and().formLogin().loginPage("/login").successHandler(customAuthenticationSuccessHandler).permitAll()
+//                .and().formLogin().loginPage("/login").successHandler(loginSuccessHandler).permitAll().and().logout().permitAll()
                 .and()
                 .exceptionHandling()
                 .authenticationEntryPoint( this::commence )
@@ -78,6 +77,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private void commence(HttpServletRequest request, HttpServletResponse response,
                           AuthenticationException authException) throws IOException, ServletException {
+
+
+
         response.setContentType( "application/json" );
         response.setStatus(403);
         response.getWriter().write( "{\"details\": \"User is not Authenticated\"}" );
@@ -105,15 +107,26 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             String lastName = userDetails.getLastName();
             String phoneNumber = userDetails.getPhoneNumber();
 
-            Map<String, String> tokens = new HashMap<>();
-            tokens.put("accessToken", token);
-            tokens.put("userId", userId);
-            tokens.put("firstName", firstName);
-            tokens.put("emailAddress", emailAddress);
-            tokens.put("lastName", lastName);
-            tokens.put("phoneNumber", phoneNumber);
+//            Map<String, String> tokens = new HashMap<>();
+//            tokens.put("accessToken", token);
+//            tokens.put("userId", userId);
+//            tokens.put("firstName", firstName);
+//            tokens.put("emailAddress", emailAddress);
+//            tokens.put("lastName", lastName);
+//            tokens.put("phoneNumber", phoneNumber);
+//            tokens.put("roles", arrayList);
+
+            LoginResponse loginResponse = new LoginResponse(
+                    token, userId, firstName, emailAddress, lastName, phoneNumber,
+
+                    userDetails.getRolesCollection().stream()
+                    .map(Role::getName)
+                    .collect(Collectors.toList())
+
+            );
+
             response.setContentType(APPLICATION_JSON_VALUE);
-            new ObjectMapper().writeValue(response.getOutputStream(), tokens);
+            new ObjectMapper().writeValue(response.getOutputStream(), loginResponse);
 
 
         } catch ( Exception e ) {

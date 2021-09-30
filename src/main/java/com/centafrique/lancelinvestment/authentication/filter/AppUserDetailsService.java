@@ -26,7 +26,8 @@ public class AppUserDetailsService  implements UserDetailsService {
             throw new UsernameNotFoundException("User does not exist with email: " + username);
         }
         return new org.springframework.security.core.userdetails.User(
-                u.getEmailAddress(), u.getPassword(),
+                u.getEmailAddress(),
+                u.getPassword(),
                 u.getRolesCollection().stream().map( Role::getName )
                         .map( SimpleGrantedAuthority::new )
                         .collect( Collectors.toSet())

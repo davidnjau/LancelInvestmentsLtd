@@ -60,12 +60,12 @@
 
     function loginUser(){
 
-        var emailAddress = document.getElementById("emailAddress").value;
-        var password = document.getElementById("password").value;
+        let emailAddress = document.getElementById("emailAddress").value;
+        let password = document.getElementById("password").value;
 
         if (emailAddress && password){
 
-            var dataJson = {
+            let dataJson = {
                 "username":emailAddress,
                 "password":password,
             };
@@ -89,6 +89,7 @@
                     var phoneNumber = response.phoneNumber
                     var userId = response.userId
                     var emailAddress = response.emailAddress
+                    let roles = response.roles
 
                     window.localStorage.setItem('accessToken', accessToken);
                     window.localStorage.setItem('firstName', firstName);
@@ -96,6 +97,24 @@
                     window.localStorage.setItem('phoneNumber', phoneNumber);
                     window.localStorage.setItem('userId', userId);
                     window.localStorage.setItem('emailAddress', emailAddress);
+
+                    if(roles.indexOf("ROLE_ADMIN") !== -1){
+
+                        let user_id = userId;
+                        // let bearer = "Bearer "+ accessToken;
+                        //
+                        // $.ajax({
+                        //     url:'/admin/view-dashboard',
+                        //     headers:{'Authorization': bearer}
+                        // }).done(function (success) {
+                        //     window.location.href = "/admin/dashboard";
+                        // });
+
+                        // window.location.headers("Authorization", "Bearer " +accessToken);
+                        window.location.href = "/admin/dashboard/"+user_id;
+                    }else {
+                        window.location.href = "/";
+                    }
 
                 }, error: function (error) {
                     // alert('error: ' + error);

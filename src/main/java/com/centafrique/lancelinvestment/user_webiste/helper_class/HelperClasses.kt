@@ -1,5 +1,6 @@
 package com.centafrique.lancelinvestment.user_webiste.helper_class
 
+import com.centafrique.lancelinvestment.user_webiste.entity.Blogs
 import com.centafrique.lancelinvestment.user_webiste.entity.ProductImages
 import com.centafrique.lancelinvestment.user_webiste.entity.ProductSizes
 import org.springframework.web.multipart.MultipartFile
@@ -19,6 +20,18 @@ data class ProductDisplay(
     val productName: String,
     val sizeAmount: String,
     val productPrice: String,
+
+)
+
+data class BlogDetails(
+
+    val index: String,
+    val title: String,
+    val details: String,
+    val createdAt: String,
+    val id: String,
+    val featuredImage: String,
+
 
 )
 
@@ -53,6 +66,13 @@ data class DynamicRes(
     var details: Any
 )
 
+data class BlogRes(
+    val int: Int,
+    val nextPage: String?,
+    val previousPage:String?,
+    val results: List<Blogs>
+)
+
 data class DynamicFullRes(
     val int: Int,
     val nextPage: String?,
@@ -85,4 +105,16 @@ data class AddToCart(
 data class ResponseData(
     val statusCode: Int,
     val message: String
+)
+
+data class LoginResponse(
+
+    val accessToken:String,
+    val userId:String,
+    val firstName:String,
+    val emailAddress:String,
+    val lastName:String,
+    val phoneNumber:String,
+    val roles:List<String>,
+
 )

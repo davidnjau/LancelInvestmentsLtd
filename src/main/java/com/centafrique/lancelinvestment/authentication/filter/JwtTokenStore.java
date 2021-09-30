@@ -1,5 +1,6 @@
 package com.centafrique.lancelinvestment.authentication.filter;
 
+import com.centafrique.lancelinvestment.authentication.entity.Role;
 import com.nimbusds.jose.JOSEObjectType;
 import com.nimbusds.jose.JWSAlgorithm;
 import com.nimbusds.jose.JWSHeader;
@@ -12,6 +13,7 @@ import com.nimbusds.jwt.JWTClaimsSet;
 import com.nimbusds.jwt.SignedJWT;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
@@ -22,6 +24,7 @@ import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
 import java.time.temporal.TemporalUnit;
 import java.util.Date;
+import java.util.stream.Collectors;
 
 @Component
 public class JwtTokenStore {
@@ -40,10 +43,9 @@ public class JwtTokenStore {
 
         JWTClaimsSet claimsSet = new JWTClaimsSet.Builder()
                 .subject(  userDetails.getUsername())
-//
-//                .claim("roles", userDetails.getAuthorities().stream()
-//                        .map(GrantedAuthority::getAuthority)
-//                        .collect(Collectors.joining()))
+                .claim("roles", userDetails.getAuthorities().stream()
+                        .map(GrantedAuthority::getAuthority)
+                        .collect(Collectors.toList()))
                 .expirationTime( getDate( 5, ChronoUnit.HOURS ) )
                 .build();
 

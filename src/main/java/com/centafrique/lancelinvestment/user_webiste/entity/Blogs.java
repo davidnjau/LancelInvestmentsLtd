@@ -7,8 +7,9 @@ import org.hibernate.annotations.UpdateTimestamp;
 import javax.persistence.*;
 import java.util.Date;
 
+@Table(name = "blogs")
 @Entity
-public class Products {
+public class Blogs {
 
     @Id
     @GeneratedValue(generator = "UUID")
@@ -31,21 +32,20 @@ public class Products {
     @UpdateTimestamp
     private Date updatedAt;
 
-    private String productName;
+    private String blogTitle;
 
-    @Column(name = "productDescription", length = 512)
-    private String productDescription;
+    @Column(name = "blogDetails", columnDefinition = "TEXT")
+    private String blogDetails;
 
-    @Column(name = "ingredients", length = 512)
-    private String ingredients;
+    private String featuredImage;
 
-    public Products() {
+    public Blogs() {
     }
 
-    public Products(String productName, String productDescription, String ingredients) {
-        this.productName = productName;
-        this.productDescription = productDescription;
-        this.ingredients = ingredients;
+    public Blogs(String blogTitle, String blogDetails, String featuredImage) {
+        this.blogTitle = blogTitle;
+        this.blogDetails = blogDetails;
+        this.featuredImage = featuredImage;
     }
 
     public String getId() {
@@ -72,27 +72,27 @@ public class Products {
         this.updatedAt = updatedAt;
     }
 
-    public String getProductName() {
-        return productName;
+    public String getBlogTitle() {
+        return blogTitle;
     }
 
-    public void setProductName(String productName) {
-        this.productName = productName;
+    public void setBlogTitle(String blogTitle) {
+        this.blogTitle = blogTitle;
     }
 
-    public String getProductDescription() {
-        return productDescription;
+    public String getBlogDetails() {
+        return blogDetails;
     }
 
-    public void setProductDescription(String productDescription) {
-        this.productDescription = productDescription;
+    public void setBlogDetails(String blogDetails) {
+        this.blogDetails = blogDetails;
     }
 
-    public String getIngredients() {
-        return ingredients;
+    public String getFeaturedImage() {
+        return featuredImage;
     }
 
-    public void setIngredients(String ingredients) {
-        this.ingredients = ingredients;
+    public void setFeaturedImage(String featuredImage) {
+        this.featuredImage = featuredImage;
     }
 }

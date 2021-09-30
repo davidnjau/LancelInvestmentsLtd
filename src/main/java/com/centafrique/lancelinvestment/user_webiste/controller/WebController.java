@@ -1,21 +1,33 @@
 package com.centafrique.lancelinvestment.user_webiste.controller;
 
+import com.centafrique.lancelinvestment.authentication.entity.Role;
 import com.centafrique.lancelinvestment.authentication.entity.UserDetails;
 import com.centafrique.lancelinvestment.authentication.service_class.impl.UserDetailsServiceImpl;
+import com.centafrique.lancelinvestment.user_webiste.entity.Blogs;
 import com.centafrique.lancelinvestment.user_webiste.entity.ProductSizes;
 import com.centafrique.lancelinvestment.user_webiste.helper_class.*;
+import com.centafrique.lancelinvestment.user_webiste.service_data.service_impl.BlogsServiceImpl;
 import com.centafrique.lancelinvestment.user_webiste.service_data.service_impl.CartItemsServiceImpl;
 import com.centafrique.lancelinvestment.user_webiste.service_data.service_impl.ProductsServiceImpl;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URI;
+import java.text.SimpleDateFormat;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Controller
 public class WebController {
@@ -28,6 +40,12 @@ public class WebController {
 
     @Autowired
     private UserDetailsServiceImpl userDetailsServiceImpl;
+
+    @Autowired
+    private BlogsServiceImpl blogsService;
+
+    private final OkHttpClient httpClient = new OkHttpClient();
+
 
     @RequestMapping(value ="/")
     public String getHome(){
@@ -49,13 +67,71 @@ public class WebController {
     }
 
     @RequestMapping(value ="/blog")
-    public String getBlog(){
-        return "blog";
+    public ModelAndView getBlog(){
+
+        int pageNo = 1;
+        int pageSize = 9;
+        String sortField = "createdAt";
+        String sortDirection = "DESC";
+
+        BlogRes dynamicFullRes = blogsService.findPaginatedBlogs(pageNo, pageSize, sortField, sortDirection);
+
+        List<Blogs> blogDetailsList = dynamicFullRes.getResults();
+
+        List<BlogDetails> blogDetailsListData = new ArrayList<>();
+
+        SimpleDateFormat sdf = new SimpleDateFormat("MMM/dd");
+
+        for (int i = 0; i < blogDetailsList.size(); i++){
+
+            String title = blogDetailsList.get(i).getBlogTitle();
+            String details = blogDetailsList.get(i).getBlogDetails();
+
+            String detailsData = "";
+            if (details.length() > 500){
+                detailsData = details.substring(0, 500);
+            }else {
+                detailsData = details.substring(0, details.length());
+            }
+
+            Date createdAt = blogDetailsList.get(i).getCreatedAt();
+            String id = blogDetailsList.get(i).getId();
+            String featuredImage = blogDetailsList.get(i).getFeaturedImage();
+
+            String dateCreated = sdf.format(createdAt);
+
+            BlogDetails blogDetails = new BlogDetails(""+i+1, title, detailsData+"... ", dateCreated, id, featuredImage);
+            blogDetailsListData.add(blogDetails);
+
+        }
+
+
+        ModelAndView modelAndView = new ModelAndView("/blog");
+        modelAndView.addObject("blogDetailsList", blogDetailsListData);
+        modelAndView.addObject("pageNo", pageNo);
+        modelAndView.addObject("pageSize", pageSize);
+
+        return modelAndView;
     }
 
-    @RequestMapping(value ="/blog-details")
-    public String getBlogDetails(){
-        return "blog_details";
+    @RequestMapping(value ="/blog-details/{blogId}")
+    public ModelAndView getUserBlogDetails(@PathVariable("blogId") String blogId){
+
+        Blogs blogDetails = blogsService.blogDetails(blogId);
+
+        String id = blogDetails.getId();
+        String blogTitle = blogDetails.getBlogTitle();
+        String blogDesc = blogDetails.getBlogDetails();
+        String featuredImage = blogDetails.getFeaturedImage();
+
+
+        ModelAndView modelAndView = new ModelAndView("/blog_details");
+        modelAndView.addObject("id", id);
+        modelAndView.addObject("blogTitle", blogTitle);
+        modelAndView.addObject("blogDesc", blogDesc);
+        modelAndView.addObject("featuredImage", featuredImage);
+
+        return modelAndView;
     }
 
     @RequestMapping(value ="/checkout")
@@ -102,30 +178,6 @@ public class WebController {
 
     }
 
-//    @RequestMapping(value = "/cart")
-//    public ModelAndView getCart(){
-//        ModelAndView modelAndView = new ModelAndView("cart");
-//
-//        UserDetails userDetails = userDetailsServiceImpl.getLoggedInUser();
-//        if (userDetails != null) {
-//
-//            String userId = userDetails.getUserId();
-//            DynamicAnyRes dynamicAnyRes = cartItemsServiceImpl.getMyCartItems(userId);
-//            List<CartDetails> cartDetailsList = dynamicAnyRes.getResults();
-//            modelAndView.addObject("cartDetailsList", cartDetailsList);
-//
-//
-//        }else {
-//            DynamicAnyRes dynamicAnyRes = cartItemsServiceImpl.getAllCartItems();
-//            List<CartDetails> cartDetailsList = dynamicAnyRes.getResults();
-//            modelAndView.addObject("cartDetailsList", cartDetailsList);
-//            modelAndView.addObject("totalPrice", cartDetailsList);
-//        }
-//
-//
-//        return modelAndView;
-//    }
-
     @RequestMapping(value = "/cart")
     public String getCart(){
         return "cart";
@@ -141,9 +193,33 @@ public class WebController {
         return "gallery";
     }
 
-    @RequestMapping(value = "/admin/dashboard")
-    public String viewAdminDashboard(){
-        return "admin/dashboard";
+    @RequestMapping(value = "/admin/dashboard/{userId}" )
+    public String viewAdminDashboard(@PathVariable("userId") String userId) {
+
+
+        UserDetails user = userDetailsServiceImpl.getUserDetails(userId);
+        if (user != null){
+
+            List<String> roleList = user.getRolesCollection().stream()
+                    .map(Role::getName)
+                    .collect(Collectors.toList());
+            if (!roleList.isEmpty() && roleList.contains("ROLE_ADMIN")){
+                return "/admin/dashboard";
+            }else {
+                return "/login";
+            }
+
+        }else {
+            return getLogin();
+        }
+
+
+
+    }
+
+    @RequestMapping(value = "/api/v1/admin/home", method = RequestMethod.GET)
+    public ModelAndView getAdminDashBoard(@RequestHeader("Authorization") String Authorization) {
+        return new ModelAndView("/admin/dashboard");
     }
 
     @RequestMapping(value = "admin/view-product-details/{productId}", method = RequestMethod.GET)
@@ -171,6 +247,12 @@ public class WebController {
     public String addProducts(){
         return "admin/add_products";
     }
+
+    @RequestMapping(value = "/admin/add_blog")
+    public String addBlog(){
+        return "admin/add_blog";
+    }
+
 
     @RequestMapping(value = "/admin/view-products")
     public ModelAndView viewAdminProducts(){
@@ -242,14 +324,49 @@ public class WebController {
         return "admin/view_users";
     }
 
-//    @RequestMapping(value = "/admin/view-product-details")
-//    public String viewAdminProductDetails(){
-//        return "admin/view_product_details";
-//    }
-
     @RequestMapping(value = "/admin/view-order-details")
     public String viewAdminOrderDetails(){
         return "admin/view_orders_details";
+    }
+
+    @RequestMapping(value = "/admin/view_blogs/{blogId}")
+    public ModelAndView getBlogDetails(@PathVariable("blogId") String blogId){
+
+        Blogs blogDetails = blogsService.blogDetails(blogId);
+
+        String id = blogDetails.getId();
+        String blogTitle = blogDetails.getBlogTitle();
+        String blogDesc = blogDetails.getBlogDetails();
+        String featuredImage = blogDetails.getFeaturedImage();
+
+
+        ModelAndView modelAndView = new ModelAndView("/admin/view_blog_details");
+        modelAndView.addObject("id", id);
+        modelAndView.addObject("blogTitle", blogTitle);
+        modelAndView.addObject("blogDesc", blogDesc);
+        modelAndView.addObject("featuredImage", featuredImage);
+
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/admin/view_blogs")
+    public ModelAndView getBlogList(){
+
+        int pageNo = 1;
+        int pageSize = 9;
+        String sortField = "createdAt";
+        String sortDirection = "DESC";
+
+        BlogRes dynamicFullRes = blogsService.findPaginatedBlogs(pageNo, pageSize, sortField, sortDirection);
+
+        List<Blogs> blogDetailsList = dynamicFullRes.getResults();
+
+        ModelAndView modelAndView = new ModelAndView("/admin/view_blogs");
+        modelAndView.addObject("blogDetailsList", blogDetailsList);
+        modelAndView.addObject("pageNo", pageNo);
+        modelAndView.addObject("pageSize", pageSize);
+
+        return modelAndView;
     }
 
 }
