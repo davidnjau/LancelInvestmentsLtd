@@ -320,8 +320,18 @@ public class WebController {
         return "admin/view_orders";
     }
     @RequestMapping(value = "/admin/view-users")
-    public String viewAdminUsers(){
-        return "admin/view_users";
+    public ModelAndView viewAdminUsers(){
+
+        int pageNo = 1;
+        int pageSize = 9;
+        String sortField = "createdAt";
+        String sortDescription = "DESC";
+
+        List<UserDetails> userList = userDetailsServiceImpl.getPaginatedUsers(pageNo, pageSize, sortField, sortDescription);
+        ModelAndView modelAndView = new ModelAndView("admin/view_users");
+        modelAndView.addObject("userList", userList);
+
+        return modelAndView;
     }
 
     @RequestMapping(value = "/admin/view-order-details")

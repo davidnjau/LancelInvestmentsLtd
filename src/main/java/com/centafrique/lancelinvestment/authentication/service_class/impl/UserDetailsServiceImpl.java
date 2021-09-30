@@ -8,7 +8,12 @@ import com.centafrique.lancelinvestment.authentication.repository.RoleRepository
 import com.centafrique.lancelinvestment.authentication.repository.UserDetailsRepository;
 import com.centafrique.lancelinvestment.authentication.service_class.service.RoleService;
 import com.centafrique.lancelinvestment.authentication.service_class.service.UserDetailsService;
+import com.centafrique.lancelinvestment.user_webiste.entity.Products;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -96,8 +101,11 @@ public class UserDetailsServiceImpl implements UserDetailsService, RoleService, 
     }
 
     public UserDetails getUserDetails(String userId){
+        System.out.println("-*-*-*- " + userId);
 
-        return userDetailsRepository.getById(userId);
+        Optional<UserDetails> optionalUserDetails = userDetailsRepository.findById(userId);
+        return optionalUserDetails.orElse(null);
+
 
     }
 
@@ -166,6 +174,22 @@ public class UserDetailsServiceImpl implements UserDetailsService, RoleService, 
 
     }
 
+    public List<UserDetails> getPaginatedUsers(int pageNo, int pageSize, String sortField, String sortDirection){
+
+        String sortPageField = "";
+        String sortPageDirection = "";
+
+        if (sortField.equals("")){sortPageField = "createdAt";}else {sortPageField = sortField;}
+        if (sortDirection.equals("")){sortPageDirection = "DESC";}else {sortPageDirection = sortField;}
+
+        Sort sort = sortPageDirection.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(sortPageField).ascending() :
+                Sort.by(sortPageField).descending();
+
+        Pageable pageable = PageRequest.of(pageNo - 1, pageSize, sort);
+        Page<UserDetails> userDetailsPage = userDetailsRepository.findAll(pageable);
+        return userDetailsPage.getContent();
+
+    }
 
 
     @Override

@@ -10,10 +10,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -58,6 +55,18 @@ public class UserDetailsController {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         return new ResponseEntity(usersList,headers, HttpStatus.OK);
+    }
+    @RequestMapping(value = "/api/v1/users/get-users/{userId}", method = RequestMethod.GET)
+    public ResponseEntity getUserDetails(@PathVariable("userId") String userId){
+
+        UserDetails userDetails = userDetailsService.getUserDetails(userId);
+        if (userDetails != null){
+            return new ResponseEntity(userDetails, HttpStatus.CREATED);
+        }else {
+            return ResponseEntity.badRequest().body(new ErrorMessage("No user has been found"));
+
+        }
+
     }
 
 
