@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
+    <link rel="icon" type="image/png" href="../assets/img/favicon.png">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Lancel Investment Ltd</title>
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
+    <!--     Fonts and icons     -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css"
+          integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700,700i%7CRajdhani:400,600,700"
+          rel="stylesheet">
+    <link rel="stylesheet" type="text/css" th:href="@{/assets/css/loader/loaders.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/assets/css/font-awesome/font-awesome.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/assets/css/bootstrap.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/assets/css/aos/aos.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/assets/css/swiper/swiper.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/assets/css/lightgallery.min.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/assets/css/style.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/assets/css/check_out.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/assets/css/responsive.css}" />
+
+</head>
+<body>
+
+<div data-th-include="header.html"></div>
+
+<!--<div>-->
+<!--    <img style="min-height: 500px" class="img-fluid" src="assets/blog/assets/img/hero/about_hero.png" alt="Post 1">-->
+<!--</div>-->
+
+
+<section class="services">
+
+    <div class="container" style="margin-top: 70px">
+
+        <main class="mt-5 pt-4">
+            <div class="container wow fadeIn">
+
+                <!-- Heading -->
+                <h2 class="my-5 h2 text-center">Checkout form</h2>
+
+                <!--Grid row-->
+                <div class="row">
+
+                    <!--Grid column-->
+                    <div class="col-md-8 mb-4">
+
+                        <!--Card-->
+                        <div class="card">
+
+                            <!--Card content-->
+                            <div class="card-body">
+
+                                <div class="col-50">
+                                    <h3>Billing Address</h3>
+                                    <label  for="name"><i class="fa fa-user"></i> Full Name</label>
+                                    <p  class="text-format" id="name"></p>
+
+                                    <label for="emailAddress"><i class="fa fa-envelope"></i> Email Address</label>
+                                    <p  class="text-format" id="emailAddress"></p>
+
+                                    <label for="phoneNumber"><i class="fa fa-address-card-o"></i> Registered Phone Number</label>
+                                    <p  class="text-format" id="phoneNumber"></p>
+
+                                </div>
+                                <hr>
+                                <div class="custom-control custom-checkbox">
+                                    <input type="checkbox" class="custom-control-input" id="same-address">
+                                    <label class="custom-control-label" for="same-address">Shipping address is the same as my billing address</label>
+                                </div>
+                                <hr>
+                                <div class="d-block my-3">
+                                    <div class="custom-control custom-radio">
+                                        <input id="credit" name="paymentMethod" type="radio" class="custom-control-input" checked required>
+                                        <label class="custom-control-label" for="credit">Mpesa Express</label>
+                                    </div>
+                                    <div class="custom-control custom-radio">
+                                        <input id="debit" name="paymentMethod" type="radio" class="custom-control-input" required>
+                                        <label class="custom-control-label" for="debit">Manual Payment</label>
+                                    </div>
+
+                                </div>
+                                <div>
+                                    <input type="number" id="pNumber" name="firstname" placeholder="2547*****">
+
+                                </div>
+
+                                <hr class="mb-4">
+                                <button class="btn btn-primary btn-lg btn-block" type="submit">Continue to checkout</button>
+
+                            </div>
+
+                        </div>
+                        <!--/.Card-->
+
+                    </div>
+                    <!--Grid column-->
+
+                    <!--Grid column-->
+                    <div class="col-md-4 mb-4">
+
+                        <!-- Heading -->
+                        <h4 class="d-flex justify-content-between align-items-center mb-3">
+                            <span class="text-muted">Your cart</span>
+                            <span id="cartNo" class="badge badge-secondary badge-pill">3</span>
+                        </h4>
+
+                        <!-- Cart -->
+                        <ul class="list-group mb-3 z-depth-1">
+                            <li class="list-group-item d-flex justify-content-between lh-condensed">
+                                <div >
+                                    <h6 class="my-0"></h6>
+
+                                    <table class="table table-bordered m-0" id="cartItems">
+
+                                        <thead>
+
+                                        <tr class="col-12">
+
+                                            <th>
+                                                Product Name
+                                            </th>
+                                            <th>
+                                                Price (Kshs)
+                                            </th>
+
+                                        </tr>
+
+                                        </thead>
+
+                                        <tbody>
+
+                                        </tbody>
+
+                                    </table>
+
+
+                                </div>
+
+                            </li>
+
+                            <li class="list-group-item d-flex justify-content-between">
+                                <span>Total (Kshs)</span>
+                                <strong id="total"></strong>
+                            </li>
+                        </ul>
+
+
+
+                        <!-- Cart -->
+
+                        <!-- Promo code -->
+                        <!--                <form class="card p-2">-->
+                        <!--                    <div class="input-group">-->
+                        <!--                        <input type="text" class="form-control" placeholder="Promo code" aria-label="Recipient's username" aria-describedby="basic-addon2">-->
+                        <!--                        <div class="input-group-append">-->
+                        <!--                            <button class="btn btn-secondary btn-md waves-effect m-0" type="button">Redeem</button>-->
+                        <!--                        </div>-->
+                        <!--                    </div>-->
+                        <!--                </form>-->
+                        <!-- Promo code -->
+
+                    </div>
+                    <!--Grid column-->
+
+                </div>
+                <!--Grid row-->
+
+            </div>
+        </main>
+
+    </div>
+
+</section>
+
+
+<div data-th-include="footer.html"></div>
+
+<script>
+
+    var firstName = window.localStorage.getItem('firstName');
+    var lastName = window.localStorage.getItem('lastName');
+    var phoneNumber = window.localStorage.getItem('phoneNumber');
+    var emailAddress = window.localStorage.getItem('emailAddress');
+    var accessToken = window.localStorage.getItem('accessToken');
+
+    document.getElementById("name").innerHTML = firstName + " " + lastName;
+    document.getElementById("emailAddress").innerHTML = emailAddress;
+    document.getElementById("phoneNumber").innerHTML = phoneNumber;
+
+    //Get my Cart
+    $.ajax({
+        type:'GET',
+        url:"/api/v1/user/products/view-my-cart",
+        headers: {
+            'Authorization':'Bearer '+accessToken,
+            'Content-Type':'application/json'
+        },
+        success:function (response) {
+
+            document.getElementById("cartNo").innerHTML = response.count;
+
+            var totalAmount = 0;
+
+            var para = document.createElement("P");
+
+            let cartItems = document.getElementById("cartItems");
+            let row = cartItems.insertRow(1);
+
+            let cell1 = row.insertCell(0);
+            let cell2 = row.insertCell(1);
+
+            let productList = response.results
+            let linebreak;
+
+            for (let i = 0; i < productList.length; i++) {
+
+                let productName = productList[i].productDetails.productName
+
+                let productPrice = productList[i].cartData.productPrice
+                let productQuantity = productList[i].cartData.productQuantity
+
+                let totalItemPrice = productPrice * productQuantity
+                totalAmount = totalAmount + totalItemPrice;
+
+                cell1.innerHTML = productName;
+                cell2.innerHTML = totalAmount;
+
+                // var newText = productName + "    " + "Ksh " + productPrice;
+                // var newText = productName;
+
+                // linebreak = document.createElement("br");
+                // para.appendChild(linebreak);
+                // var t = document.createTextNode(newText);
+                // para.appendChild(t);
+
+
+            }
+
+
+            document.getElementById("total").innerHTML = "Kshs " + totalAmount;
+
+            // console.log(response)
+
+
+        }, error: function (error){
+            console.log(error)
+
+        },
+        contentType: "application/json",
+        dataType: 'json'
+
+    })
+
+
+</script>
+
+</body>
+</html>

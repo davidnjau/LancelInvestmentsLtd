@@ -23,6 +23,8 @@
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700,700i%7CRajdhani:400,600,700"
           rel="stylesheet">
     <!-- Plugins Stylesheets -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.0/sweetalert.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <link rel="stylesheet" th:href="@{/assets/shop/assets/css/bootstrap.min.css}">
     <link rel="stylesheet" th:href="@{/assets/shop/assets/css/templatemo.css}">
@@ -208,7 +210,7 @@ https://templatemo.com/tm-559-Bee Keeping-shop
 
                             <div th:each="productSizes : ${productDetails.getProductSizes()}">
 
-                                <input type="radio" th:id="${productSizes.getId()}"
+                                <input type="radio" th:id="productSize"
                                        th:name="radioSizes"
                                        th:value="${productSizes.getSizeAmount()}">
 
@@ -217,7 +219,7 @@ https://templatemo.com/tm-559-Bee Keeping-shop
 
                             </div>
 
-                            <form action="" method="GET">
+                            <div >
                                 <input type="hidden" name="product-title" value="Activewear">
                                 <div class="row">
                                     <div class="col-auto">
@@ -240,10 +242,10 @@ https://templatemo.com/tm-559-Bee Keeping-shop
                                         <button type="submit" class="btn btn-success btn-lg" name="submit" value="buy">Buy</button>
                                     </div>
                                     <div class="col d-grid">
-                                        <button type="submit" class="btn btn-success btn-lg" name="submit" value="addtocard">Add To Cart</button>
+                                        <button class="btn btn-success btn-lg" onclick="addCartProducts()" >Add To Cart</button>
                                     </div>
                                 </div>
-                            </form>
+                            </div>
 
                         </div>
                     </div>
@@ -299,6 +301,59 @@ https://templatemo.com/tm-559-Bee Keeping-shop
         });
     </script>
     <!-- End Slider Script -->
+
+    <!-- SubmitToCart -->
+    <script>
+
+        function addCartProducts(){
+
+            var productId = document.getElementById("productId").value;
+            var productSize = document.getElementById("productSize").value;
+            var productQuantity = document.getElementById("var-value").value;
+
+            if (productId && productSize && productQuantity){
+
+                // convert to JSON
+                var dataJson = {
+                    "productId":productId,
+                    "productSize":productSize,
+                    "productQuantity":productQuantity
+                };
+                var postData = JSON.stringify(dataJson);
+                console.log(postData)
+
+                $.ajax({
+                    type: 'POST',
+                    url: "/api/v1/user/products/add-to-cart",
+                    data: postData,
+                    success: function(response) {
+
+                        swal(
+                            'Successful Save',
+                            'The Product has been added to cart.',
+                            'success'
+                        )
+
+                    }, error: function (error) {
+                        // alert('error: ' + error);
+
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'The product cannot be added to cart.',
+                        })
+                    }
+
+                })
+
+            }
+
+
+
+
+        }
+
+    </script>
 
 </body>
 

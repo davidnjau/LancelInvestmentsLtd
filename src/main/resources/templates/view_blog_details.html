@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Lancel Investment Ltd</title>
+
+    <!-- Font Icon -->
+    <link rel="stylesheet" th:href="@{/fonts/material-icon/css/material-design-iconic-font.min.css}">
+    <link rel="stylesheet" th:href="@{/vendor/nouislider/nouislider.min.css}">
+
+    <!-- Main css -->
+    <link rel="stylesheet" th:href="@{/static/assets/admin/assets/table/css/style.css}">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script src="https://cdn.ckeditor.com/4.16.2/standard-all/ckeditor.js"></script></head>
+
+<body>
+
+<div class="container-scroller">
+    <!-- partial:../../partials/_navbar.html -->
+    <!-- partial -->
+    <div class="container-fluid page-body-wrapper">
+
+        <!-- partial:../../partials/_sidebar.html -->
+        <div data-th-include="sidebar.html"></div>
+
+        <!-- partial -->
+        <div class="main-panel">
+            <div class="content-wrapper">
+                <div class="row">
+                    <div class="col-md-6 grid-margin stretch-card">
+
+                    </div>
+                    <div class="col-md-6 grid-margin stretch-card">
+                        <div class="card">
+
+                        </div>
+                    </div>
+                    <div class="col-12 grid-margin stretch-card">
+                        <div class="card">
+                            <div class="card-body">
+                                <h1 class="card-title">Blog</h1>
+
+                                <div class="forms-sample">
+                                    <div class="form-group">
+                                        <h3>Blog Name</h3>
+                                        <input th:value="${blogTitle}" type="text" class="form-control" id="blogName" placeholder="Blog Name">
+                                    </div>
+
+                                    <div style="display: none;">
+                                        <input th:value="${id}" type="text" class="form-control" id="blogId" placeholder="">
+                                    </div>
+
+                                    <div class="col-6 mt-3 row">
+                                        <h3>Featured Image</h3>
+                                        <img th:src="${featuredImage}" alt="image" style="width: 300px; height: 200px">
+                                        <input type="file" id="image" name="image" class="file-upload-default mt-1" accept="image/*">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <h3>Blog Details</h3>
+                                        <textarea th:text="${blogDesc}" cols="80" id="editor" name="editor" rows="10"></textarea>
+
+                                    </div>
+
+
+                                    <div id="actionButtons">
+                                        <button onclick="uploadBlog()" class="btn btn-primary me-2">Submit</button>
+                                        <button class="btn btn-light">Cancel</button>
+                                    </div>
+
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+                </div>
+            </div>
+            <!-- content-wrapper ends -->
+            <!-- partial:../../partials/_footer.html -->
+            <footer class="footer">
+                <div class="d-sm-flex justify-content-center justify-content-sm-between">
+                    <span class="text-muted text-center text-sm-left d-block d-sm-inline-block"> <a href="https://www.centafrique.com/" target="_blank">Lancel admin dashboard</a> from Centafrique.</span>
+                    <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Copyright © 2021. All rights reserved.</span>
+                </div>
+            </footer>
+            <!-- partial -->
+        </div>
+        <!-- main-panel ends -->
+    </div>
+    <!-- page-body-wrapper ends -->
+</div>
+
+<script>
+
+    CKEDITOR.replace('editor', {
+        fullPage: true,
+        extraPlugins: 'docprops',
+        // Disable content filtering because if you use full page mode, you probably
+        // want to  freely enter any HTML content in source mode without any limitations.
+        allowedContent: true,
+        height: 320,
+        removeButtons: 'PasteFromWord'
+    });
+
+    function uploadBlog(){
+
+        let blog = CKEDITOR.instances['editor'].getData().toString();
+        let file = $('#image')[0].files[0]
+        let blogName = document.getElementById("blogName").value;
+        let blogId = document.getElementById("blogId").value;
+
+        let accessToken = window.localStorage.getItem('accessToken');
+
+        if (blog && file && blogName){
+
+
+            let formData = new FormData()
+            formData.append('blog', blog);
+            formData.append('file', file);
+            formData.append('blogName', blogName);
+            formData.append('blogId', blogId);
+
+            $.ajax({
+                method: 'PUT',
+                url: "/api/v1/blogs/update-blog-details/",
+                enctype: 'multipart/form-data',
+                data: formData,
+                headers: {
+                    'Authorization':'Bearer '+accessToken},
+                processData: false,
+                contentType: false,
+                cache: false,
+                timeout: 600000,
+                // contentType: "application/json",
+                // dataType: 'json',
+                success: function(response) {
+
+                    alert("Successfully Updated the blog.")
+
+                    // new swal(
+                    //     'Product images saved successfully',
+                    //     'Images saved successfully.',
+                    //     'success'
+                    // )
+
+
+
+                }, error: function (error) {
+                    alert('error: ' + error);
+                    console.log("-*-*-* "+ error)
+
+                    // let json = $.parseJSON(error.responseText);
+                    // let details = json.error
+                    //
+                    // new swal({
+                    //     icon: 'error',
+                    //     title: 'Oops...',
+                    //     text: details,
+                    // })
+                }
+
+            })
+
+
+        }else {
+
+            alert("Make sure you have a featured image, a blog name and blog details");
+
+        }
+
+    }
+
+</script>
+
+</body>
+</html>

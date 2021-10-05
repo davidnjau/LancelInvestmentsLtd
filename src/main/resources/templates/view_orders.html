@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Lancel Investment Ltd</title>
+
+    <!-- Font Icon -->
+    <link rel="stylesheet" th:href="@{/fonts/material-icon/css/material-design-iconic-font.min.css}">
+    <link rel="stylesheet" th:href="@{/vendor/nouislider/nouislider.min.css}">
+
+    <!-- Main css -->
+    <link rel="stylesheet" th:href="@{/static/assets/admin/assets/table/css/style.css}">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</head>
+<body>
+
+<div class="container-scroller">
+
+    <div class="container-fluid page-body-wrapper">
+
+        <div data-th-include="sidebar.html"></div>
+
+        <div class="main-panel">
+            <div class="content-wrapper">
+                <div class="row">
+
+
+                    <div class="col-lg-12 grid-margin stretch-card">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title">View Orders</h4>
+
+                                <div class="table-responsive">
+                                    <table class="table table-striped">
+                                        <thead>
+                                        <tr>
+                                            <th>
+                                                #
+                                            </th>
+                                            <th>
+                                                Order Number
+                                            </th>
+                                            <th>
+                                                No of Items
+                                            </th>
+                                            <th>
+                                                Order Amount
+                                            </th>
+                                            <th>
+                                                Action
+                                            </th>
+
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <td >
+                                                1
+                                            </td>
+                                            <td>
+                                                ORD-286765
+                                            </td>
+                                            <td>
+                                                6
+                                            </td>
+                                            <td>
+                                                Kshs 7,799
+                                            </td>
+                                            <td>
+                                                <a class="nav-link badge badge-success" href="view-order-details">View</a>
+                                            </td>
+
+                                        </tr>
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                </div>
+            </div>
+            <!-- content-wrapper ends -->
+            <!-- partial:../../partials/_footer.html -->
+            <footer class="footer">
+                <div class="d-sm-flex justify-content-center justify-content-sm-between">
+                    <span class="text-muted text-center text-sm-left d-block d-sm-inline-block"> <a href="https://www.centafrique.com/" target="_blank">Lancel admin dashboard</a> from Centafrique.</span>
+                    <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Copyright © 2021. All rights reserved.</span>
+                </div>
+            </footer>
+            <!-- partial -->
+        </div>
+
+    </div>
+
+
+</div>
+
+
+</body>
+</html>

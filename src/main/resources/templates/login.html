@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Lancel Investment Ltd</title>
+
+    <!-- Font Icon -->
+
+    <!-- Main css -->
+    <link rel="stylesheet" th:href="@{/assets/css/acl.css}">
+
+</head>
+<body>
+
+<div data-th-include="header.html"></div>
+
+<div>
+    <img style="max-height: 130px" class="img-fluid" th:src="@{/assets/blog/assets/img/hero/about_hero.png}" alt="Post 1">
+</div>
+
+
+    <div class="main">
+
+        <!-- Sing in  Form -->
+        <div id="loginDiv" class="login-page">
+            <div class="form">
+                <div class="login-form">
+                    <input type="text" id="emailAddress" placeholder="email address"/>
+                    <input type="password" id="password" placeholder="password"/>
+                    <button class="btn btn-success btn-lg" onclick="loginUser()">login</button>
+                    <p class="message">Not registered? <a id="signIn" href="#">Create an account</a></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Register -->
+        <div id="registerDiv" class="login-page">
+            <div class="form">
+                <div class="login-form">
+                    <input type="text" id="regFirstName" placeholder="firstName"/>
+                    <input type="text" id="regLastName" placeholder="lastName"/>
+                    <input type="text" id="regUsername" placeholder="username"/>
+                    <input type="text" id="regPhoneNumber" placeholder="phoneNumber"/>
+                    <input type="text" id="regEmailAddress" placeholder="email address"/>
+                    <input type="password" id="regPassword" placeholder="password"/>
+                    <input type="password" id="regPassword1" placeholder="confirm password"/>
+                    <button class="btn btn-success btn-lg" onclick="registerUser()">Register</button>
+                    <p class="message">Already have an account? <a id="signUp" href="#">Login</a></p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+<div data-th-include="footer.html"></div>
+
+<script>
+
+    function loginUser(){
+
+        let emailAddress = document.getElementById("emailAddress").value;
+        let password = document.getElementById("password").value;
+
+        if (emailAddress && password){
+
+            let dataJson = {
+                "username":emailAddress,
+                "password":password,
+            };
+            var postData = JSON.stringify(dataJson);
+
+            $.ajax({
+                type: 'POST',
+                url: "/api/v1/auth/login",
+                data: postData,
+                success: function(response) {
+
+                    new swal(
+                        'Successful Login in',
+                        'You have been logged in successfully.',
+                        'success'
+                    )
+
+                    var accessToken = response.accessToken
+                    var firstName = response.firstName
+                    var lastName = response.lastName
+                    var phoneNumber = response.phoneNumber
+                    var userId = response.userId
+                    var emailAddress = response.emailAddress
+                    let roles = response.roles
+
+                    window.localStorage.setItem('accessToken', accessToken);
+                    window.localStorage.setItem('firstName', firstName);
+                    window.localStorage.setItem('lastName', lastName);
+                    window.localStorage.setItem('phoneNumber', phoneNumber);
+                    window.localStorage.setItem('userId', userId);
+                    window.localStorage.setItem('emailAddress', emailAddress);
+
+                    if(roles.indexOf("ROLE_ADMIN") !== -1){
+
+                        let user_id = userId;
+                        // let bearer = "Bearer "+ accessToken;
+                        //
+                        // $.ajax({
+                        //     url:'/admin/view-dashboard',
+                        //     headers:{'Authorization': bearer}
+                        // }).done(function (success) {
+                        //     window.location.href = "/admin/dashboard";
+                        // });
+
+                        // window.location.headers("Authorization", "Bearer " +accessToken);
+                        window.location.href = "/admin/dashboard/"+user_id;
+                    }else {
+                        window.location.href = "/";
+                    }
+
+                }, error: function (error) {
+                    // alert('error: ' + error);
+
+                    var json = $.parseJSON(error.responseText);
+                    var details = json.error
+
+                    new swal({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: details,
+                    })
+                },
+                contentType: "application/json",
+                dataType: 'json'
+
+            })
+
+
+        }else {
+
+            new swal({
+                title: "error",
+                text: "Check on your email address and password.",
+                icon: "error",
+            });
+
+        }
+
+    }
+
+    document.getElementById("signIn").onclick = function () {
+        document.getElementById("loginDiv").style.display = "none";
+        document.getElementById("registerDiv").style.display = "block";
+    }
+    document.getElementById("signUp").onclick = function () {
+        document.getElementById("loginDiv").style.display = "block";
+        document.getElementById("registerDiv").style.display = "none";
+    }
+
+    document.getElementById("registerDiv").style.display = "none";
+
+    function registerUser(){
+
+        let regFirstName = document.getElementById("regFirstName").value;
+        let regLastName = document.getElementById("regLastName").value;
+        let regUsername = document.getElementById("regUsername").value;
+        let regPhoneNumber = document.getElementById("regPhoneNumber").value;
+        let regEmailAddress = document.getElementById("regEmailAddress").value;
+        let regPassword = document.getElementById("regPassword").value;
+        let regPassword1 = document.getElementById("regPassword1").value;
+
+        if (regFirstName && regLastName && regUsername && regPhoneNumber
+            && regEmailAddress && regPassword && regPassword1){
+
+            if (regPassword === regPassword1){
+
+                let dataJson = {
+                    "firstName": regFirstName,
+                    "emailAddress": regEmailAddress,
+                    "lastName": regLastName,
+                    "username": regUsername,
+                    "password": regPassword,
+                    "phoneNumber": regPhoneNumber
+                };
+                let postData = JSON.stringify(dataJson);
+
+                $.ajax({
+                    type: 'POST',
+                    url: "/api/v1/auth/registration",
+                    data: postData,
+                    success: function(response) {
+
+                        new swal(
+                            'Successful Login in',
+                            'You have been registered successfully. Login to continue.',
+                            'success'
+                        )
+
+                        document.getElementById("loginDiv").style.display = "block";
+                        document.getElementById("registerDiv").style.display = "none";
+
+                    }, error: function (error) {
+                        // alert('error: ' + error);
+
+                        let json = $.parseJSON(error.responseText);
+                        let details = json.error
+
+                        new swal({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: details,
+                        })
+                    },
+                    contentType: "application/json",
+                    dataType: 'json'
+
+                })
+
+            }else {
+
+                new swal({
+                    title: "error",
+                    text: "Make sure your password match.",
+                    icon: "error",
+                });
+
+            }
+
+
+
+
+        }else {
+
+            new swal({
+                title: "error",
+                text: "Make sure all the fields are filled.",
+                icon: "error",
+            });
+
+        }
+
+    }
+
+
+
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,586 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+    <meta charset="utf-8" />
+    <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
+    <link rel="icon" type="image/png" href="../assets/img/favicon.png">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Lancel Investment Ltd</title>
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
+    <!--     Fonts and icons     -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css"
+          integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700,700i%7CRajdhani:400,600,700"
+          rel="stylesheet">
+    <link rel="stylesheet" type="text/css" th:href="@{/assets/css/loader/loaders.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/assets/css/font-awesome/font-awesome.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/assets/css/bootstrap.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/assets/css/aos/aos.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/assets/css/swiper/swiper.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/assets/css/lightgallery.min.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/assets/css/style.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/assets/css/responsive.css}" />
+    <link th:href="@{/assets/js/lightboxed.css}" rel="stylesheet" />
+
+</head>
+
+<body>
+
+    <div data-th-include="header.html"></div>
+
+<!--    <h2 style="text-align:center">Lightbox</h2>-->
+
+<!--    <div class="row">-->
+<!--        <div class="column">-->
+<!--            <img src="assets/img/gallery1.png" style="width:100%" onclick="openModal();currentSlide(1)" class="hover-shadow cursor">-->
+<!--        </div>-->
+<!--        <div class="column">-->
+<!--            <img src="assets/img/gallery2.png" style="width:100%" onclick="openModal();currentSlide(2)" class="hover-shadow cursor">-->
+<!--        </div>-->
+<!--        <div class="column">-->
+<!--            <img src="assets/img/gallery3.png" style="width:100%" onclick="openModal();currentSlide(3)" class="hover-shadow cursor">-->
+<!--        </div>-->
+<!--        <div class="column">-->
+<!--            <img src="assets/img/gallery4.png" style="width:100%" onclick="openModal();currentSlide(4)" class="hover-shadow cursor">-->
+<!--        </div>-->
+<!--    </div>-->
+
+<!--    <div id="myModal" class="modal">-->
+<!--        <span class="close cursor" onclick="closeModal()">&times;</span>-->
+<!--        <div class="modal-content">-->
+
+<!--            <div class="mySlides">-->
+<!--                <div class="numbertext">1 / 4</div>-->
+<!--                <img src="assets/img/gallery1.png" class="lightboxed gallery-image card-img rounded-0 img-fluid" style="width: 100px">-->
+<!--            </div>-->
+
+<!--            <div class="mySlides">-->
+<!--                <div class="numbertext">2 / 4</div>-->
+<!--                <img src="assets/img/gallery2.png" class="lightboxed gallery-image card-img rounded-0 img-fluid" style="width: 100px">-->
+<!--            </div>-->
+
+<!--            <div class="mySlides">-->
+<!--                <div class="numbertext">3 / 4</div>-->
+<!--                <img src="assets/img/gallery3.png" class="lightboxed gallery-image card-img rounded-0 img-fluid" style="width: 100px">-->
+<!--            </div>-->
+
+<!--            <div class="mySlides">-->
+<!--                <div class="numbertext">4 / 4</div>-->
+<!--                <img src="assets/img/gallery4.png" class="lightboxed gallery-image card-img rounded-0 img-fluid" style="width: 100px">-->
+<!--            </div>-->
+
+<!--            <a class="prev" onclick="plusSlides(-1)">&#10094;</a>-->
+<!--            <a class="next" onclick="plusSlides(1)">&#10095;</a>-->
+
+<!--            <div class="caption-container">-->
+<!--                <p id="caption"></p>-->
+<!--            </div>-->
+
+<!--            <div class="column">-->
+<!--                <img src="assets/img/gallery4.png" class="gallery-image card-img rounded-0 img-fluid" alt="Nature and sunrise">-->
+<!--            </div>-->
+<!--            <div class="column">-->
+<!--                <img src="assets/img/gallery3.png" class="gallery-image card-img rounded-0 img-fluid"  alt="Snow">-->
+<!--            </div>-->
+<!--            <div class="column">-->
+<!--                <img src="assets/img/gallery1.png" class="gallery-image card-img rounded-0 img-fluid"  alt="Mountains and fjords">-->
+<!--            </div>-->
+<!--            <div class="column">-->
+<!--                <img src="assets/img/gallery2.png" class="gallery-image card-img rounded-0 img-fluid" alt="Northern Lights">-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+
+<!--    <script>-->
+<!--        function openModal() {-->
+<!--            document.getElementById("myModal").style.display = "block";-->
+<!--        }-->
+
+<!--        function closeModal() {-->
+<!--            document.getElementById("myModal").style.display = "none";-->
+<!--        }-->
+
+<!--        var slideIndex = 1;-->
+<!--        showSlides(slideIndex);-->
+
+<!--        function plusSlides(n) {-->
+<!--            showSlides(slideIndex += n);-->
+<!--        }-->
+
+<!--        function currentSlide(n) {-->
+<!--            showSlides(slideIndex = n);-->
+<!--        }-->
+
+<!--        function showSlides(n) {-->
+<!--            var i;-->
+<!--            var slides = document.getElementsByClassName("mySlides");-->
+<!--            var dots = document.getElementsByClassName("demo");-->
+<!--            var captionText = document.getElementById("caption");-->
+<!--            if (n > slides.length) {slideIndex = 1}-->
+<!--            if (n < 1) {slideIndex = slides.length}-->
+<!--            for (i = 0; i < slides.length; i++) {-->
+<!--                slides[i].style.display = "none";-->
+<!--            }-->
+<!--            for (i = 0; i < dots.length; i++) {-->
+<!--                dots[i].className = dots[i].className.replace(" active", "");-->
+<!--            }-->
+<!--            slides[slideIndex-1].style.display = "block";-->
+<!--            dots[slideIndex-1].className += "active";-->
+<!--            captionText.innerHTML = dots[slideIndex-1].alt;-->
+<!--        }-->
+<!--    </script>-->
+
+
+    <!-- Featured End -->
+    <!-- Recent Posts Start -->
+    <section class="services">
+
+<!--        <div>-->
+<!--            <img class="img-fluid" src="assets/blog/assets/img/hero/about_hero.png" alt="Post 1">-->
+<!--        </div>-->
+
+        <div class="container" style="margin-top: 70px">
+
+            <div class="title text-center">
+                <h1 class="title-blue">Our Gallery</h1>
+            </div>
+
+            <div class="row">
+
+                <div>
+
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="card mb-4 product-wap rounded-0">
+                                <div class="card rounded-0">
+                                    <img class="lightboxed gallery-image card-img rounded-0 img-fluid" rel="theLandFarmers" src="assets/img/gallery1.png">
+                                </div>
+                                <div class="card-body">
+                                    <a href="#" style="color: #0b0b0b" class="h3 text-decoration-none">Theland Farmers Maregut Baringo</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3" style="display: none">
+                            <div class="card mb-4 product-wap rounded-0">
+                                <div class="card rounded-0">
+                                    <img class="lightboxed gallery-image card-img rounded-0 img-fluid" rel="theLandFarmers" data-caption="Theland Farmers" src="assets/img/gallery2.png" >
+
+                                </div>
+                                <div class="card-body">
+                                    <a href="#" class="h3 text-decoration-none">Theland Farmers</a>
+                                    <ul class="w-100 list-unstyled d-flex justify-content-between mb-0">
+
+
+                                    </ul>
+
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3" style="display: none">
+                            <div class="card mb-4 product-wap rounded-0">
+                                <div class="card rounded-0">
+                                    <img class="lightboxed gallery-image card-img rounded-0 img-fluid" rel="theLandFarmers"  src="assets/img/gallery3.png">
+
+                                </div>
+                                <div class="card-body">
+                                    <a href="#" class="h3 text-decoration-none">Theland Farmers</a>
+                                    <ul class="w-100 list-unstyled d-flex justify-content-between mb-0">
+
+
+                                    </ul>
+
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3" >
+                            <div class="card mb-4 product-wap rounded-0">
+                                <div class="card rounded-0">
+                                    <img class="lightboxed gallery-image card-img rounded-0 img-fluid" rel="trainingKathiani" src="assets/img/gallery4.png">
+
+                                </div>
+                                <div class="card-body">
+                                    <a href="#" style="color: #0b0b0b" class="h3 text-decoration-none">Farmer Training Kathiani Machakos</a>
+                                    <ul class="w-100 list-unstyled d-flex justify-content-between mb-0">
+
+
+                                    </ul>
+
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3" style="display: none">
+                            <div class="card mb-4 product-wap rounded-0">
+                                <div class="card rounded-0">
+                                    <img class="lightboxed gallery-image card-img rounded-0 img-fluid" rel="trainingKathiani" src="assets/img/gallery5.png">
+
+                                </div>
+                                <div class="card-body">
+                                    <a href="#" class="h3 text-decoration-none">Farmer Training Kathiani Machakos</a>
+                                    <ul class="w-100 list-unstyled d-flex justify-content-between mb-0">
+
+
+                                    </ul>
+
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3" style="display: none">
+                            <div class="card mb-4 product-wap rounded-0">
+                                <div class="card rounded-0">
+                                    <img class="lightboxed gallery-image card-img rounded-0 img-fluid" rel="trainingKathiani" src="assets/img/gallery6.png">
+
+                                </div>
+                                <div class="card-body">
+                                    <a href="#" class="h3 text-decoration-none">Farmer Training Kathiani Machakos</a>
+                                    <ul class="w-100 list-unstyled d-flex justify-content-between mb-0">
+
+
+                                    </ul>
+
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3" style="display: none">
+                            <div class="card mb-4 product-wap rounded-0">
+                                <div class="card rounded-0">
+                                    <img class="lightboxed gallery-image card-img rounded-0 img-fluid" rel="trainingKathiani" src="assets/img/gallery11.png">
+
+                                </div>
+                                <div class="card-body">
+                                    <a href="#" class="h3 text-decoration-none">Farmer Training in Embu</a>
+                                    <ul class="w-100 list-unstyled d-flex justify-content-between mb-0">
+
+
+                                    </ul>
+
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card mb-4 product-wap rounded-0">
+                                <div class="card rounded-0">
+                                    <img class="lightboxed gallery-image card-img rounded-0 img-fluid" rel="trainingKapkuikui" src="assets/img/gallery7.png">
+
+                                </div>
+                                <div class="card-body">
+                                    <a href="#" style="color: #0b0b0b" class="h3 text-decoration-none">Farmer Training in Kapkuikui Baringo</a>
+                                    <ul class="w-100 list-unstyled d-flex justify-content-between mb-0">
+
+
+                                    </ul>
+
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card mb-4 product-wap rounded-0">
+                                <div class="card rounded-0">
+                                    <img class="lightboxed gallery-image card-img rounded-0 img-fluid" rel="trainingEmbu" src="assets/img/gallery8.png">
+
+                                </div>
+                                <div class="card-body">
+                                    <a href="#" style="color: #0b0b0b" class="h3 text-decoration-none">Farmer Training in Embu</a>
+                                    <ul class="w-100 list-unstyled d-flex justify-content-between mb-0">
+
+
+                                    </ul>
+
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3" style="display: none">
+                            <div class="card mb-4 product-wap rounded-0">
+                                <div class="card rounded-0">
+                                    <img class="lightboxed gallery-image card-img rounded-0 img-fluid" rel="trainingEmbu" src="assets/img/gallery9.png">
+
+                                </div>
+                                <div class="card-body">
+                                    <a href="#" style="color: #0b0b0b" class="h3 text-decoration-none">Farmer Training in Embu</a>
+                                    <ul class="w-100 list-unstyled d-flex justify-content-between mb-0">
+
+
+                                    </ul>
+
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3" style="display: none">
+                            <div class="card mb-4 product-wap rounded-0">
+                                <div class="card rounded-0">
+                                    <img class="lightboxed gallery-image card-img rounded-0 img-fluid" rel="trainingEmbu" src="assets/img/gallery10.png">
+
+                                </div>
+                                <div class="card-body">
+                                    <a href="#" class="h3 text-decoration-none">Farmer Training in Embu</a>
+                                    <ul class="w-100 list-unstyled d-flex justify-content-between mb-0">
+
+
+                                    </ul>
+
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3" >
+                            <div class="card mb-4 product-wap rounded-0">
+                                <div class="card rounded-0">
+                                    <img class="lightboxed gallery-image card-img rounded-0 img-fluid" rel="nationalBeeKeeping" src="assets/img/gallery13.png">
+
+                                </div>
+                                <div class="card-body">
+                                    <a href="#" style="color: #0b0b0b" class="h3 text-decoration-none">National Beeking</a>
+                                    <ul class="w-100 list-unstyled d-flex justify-content-between mb-0">
+
+
+                                    </ul>
+
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3" style="display: none">
+                            <div class="card mb-4 product-wap rounded-0">
+                                <div class="card rounded-0">
+                                    <img class="lightboxed gallery-image card-img rounded-0 img-fluid" rel="nationalBeeKeeping" src="assets/img/gallery14.jpeg">
+
+                                </div>
+                                <div class="card-body">
+                                    <a href="#" class="h3 text-decoration-none">National Beeking Institute</a>
+                                    <ul class="w-100 list-unstyled d-flex justify-content-between mb-0">
+
+
+                                    </ul>
+
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3" >
+                            <div class="card mb-4 product-wap rounded-0">
+                                <div class="card rounded-0">
+                                    <img class="lightboxed gallery-image card-img rounded-0 img-fluid" rel="apiaries" src="assets/img/apiary1.png">
+
+                                </div>
+                                <div class="card-body">
+                                    <a href="#" style="color: #0b0b0b" class="h3 text-decoration-none">Apiaries</a>
+                                    <ul class="w-100 list-unstyled d-flex justify-content-between mb-0">
+
+
+                                    </ul>
+
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3" style="display: none">
+                            <div class="card mb-4 product-wap rounded-0">
+                                <div class="card rounded-0">
+                                    <img class="lightboxed gallery-image card-img rounded-0 img-fluid" rel="apiaries" src="assets/img/apiary2.png">
+
+                                </div>
+                                <div class="card-body">
+                                    <a href="#" class="h3 text-decoration-none">Apiaries</a>
+                                    <ul class="w-100 list-unstyled d-flex justify-content-between mb-0">
+
+
+                                    </ul>
+
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3" style="display: none">
+                            <div class="card mb-4 product-wap rounded-0">
+                                <div class="card rounded-0">
+                                    <img class="lightboxed gallery-image card-img rounded-0 img-fluid" rel="apiaries" src="assets/img/apiary3.png">
+
+                                </div>
+                                <div class="card-body">
+                                    <a href="#" class="h3 text-decoration-none">Apiaries</a>
+                                    <ul class="w-100 list-unstyled d-flex justify-content-between mb-0">
+
+
+                                    </ul>
+
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3" style="display: none">
+                            <div class="card mb-4 product-wap rounded-0">
+                                <div class="card rounded-0">
+                                    <img class="lightboxed gallery-image card-img rounded-0 img-fluid" rel="apiaries" src="assets/img/apiary4.png">
+
+                                </div>
+                                <div class="card-body">
+                                    <a href="#" class="h3 text-decoration-none">Apiaries</a>
+                                    <ul class="w-100 list-unstyled d-flex justify-content-between mb-0">
+
+
+                                    </ul>
+
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3" style="display: none">
+                            <div class="card mb-4 product-wap rounded-0">
+                                <div class="card rounded-0">
+                                    <img class="lightboxed gallery-image card-img rounded-0 img-fluid" rel="apiaries" src="assets/img/apiary5.png">
+
+                                </div>
+                                <div class="card-body">
+                                    <a href="#" class="h3 text-decoration-none">Apiaries</a>
+                                    <ul class="w-100 list-unstyled d-flex justify-content-between mb-0">
+
+
+                                    </ul>
+
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3" style="display: none">
+                            <div class="card mb-4 product-wap rounded-0">
+                                <div class="card rounded-0">
+                                    <img class="lightboxed gallery-image card-img rounded-0 img-fluid" rel="apiaries" src="assets/img/apiary6.png">
+
+                                </div>
+                                <div class="card-body">
+                                    <a href="#" class="h3 text-decoration-none">Apiaries</a>
+                                    <ul class="w-100 list-unstyled d-flex justify-content-between mb-0">
+
+
+                                    </ul>
+
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3" style="display: none">
+                            <div class="card mb-4 product-wap rounded-0">
+                                <div class="card rounded-0">
+                                    <img class="lightboxed gallery-image card-img rounded-0 img-fluid" rel="apiaries" src="assets/img/apiary7.png">
+
+                                </div>
+                                <div class="card-body">
+                                    <a href="#" class="h3 text-decoration-none">Apiaries</a>
+                                    <ul class="w-100 list-unstyled d-flex justify-content-between mb-0">
+
+
+                                    </ul>
+
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3" style="display: none">
+                            <div class="card mb-4 product-wap rounded-0">
+                                <div class="card rounded-0">
+                                    <img class="lightboxed gallery-image card-img rounded-0 img-fluid" rel="apiaries" src="assets/img/apiary8.png">
+
+                                </div>
+                                <div class="card-body">
+                                    <a href="#" class="h3 text-decoration-none">Apiaries</a>
+                                    <ul class="w-100 list-unstyled d-flex justify-content-between mb-0">
+
+
+                                    </ul>
+
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3" style="display: none">
+                            <div class="card mb-4 product-wap rounded-0">
+                                <div class="card rounded-0">
+                                    <img class="lightboxed gallery-image card-img rounded-0 img-fluid" rel="apiaries" src="assets/img/apiary9.png">
+
+                                </div>
+                                <div class="card-body">
+                                    <a href="#" class="h3 text-decoration-none">Apiaries</a>
+                                    <ul class="w-100 list-unstyled d-flex justify-content-between mb-0">
+
+
+                                    </ul>
+
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3" style="display: none">
+                            <div class="card mb-4 product-wap rounded-0">
+                                <div class="card rounded-0">
+                                    <img class="lightboxed gallery-image card-img rounded-0 img-fluid" rel="apiaries" src="assets/img/apiary10.png">
+
+                                </div>
+                                <div class="card-body">
+                                    <a href="#" class="h3 text-decoration-none">Apiaries</a>
+                                    <ul class="w-100 list-unstyled d-flex justify-content-between mb-0">
+
+
+                                    </ul>
+
+
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                    <div div="row">
+                        <ul class="pagination pagination-lg justify-content-end">
+                            <li class="page-item disabled">
+                                <a class="page-link active rounded-0 mr-3 shadow-sm border-top-0 border-left-0" href="#" tabindex="-1">1</a>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link rounded-0 mr-3 shadow-sm border-top-0 border-left-0 text-dark" href="#">2</a>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link rounded-0 shadow-sm border-top-0 border-left-0 text-dark" href="#">3</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </section>
+
+    <div data-th-include="footer.html"></div>
+
+
+
+        <!-- Start Script -->
+        <script th:src="@{/assets/shop/assets/js/jquery-1.11.0.min.js}"></script>
+        <script th:src="@{/assets/shop/assets/js/jquery-migrate-1.2.1.min.js}"></script>
+        <script th:src="@{/assets/shop/assets/js/bootstrap.bundle.min.js}"></script>
+        <script th:src="@{/assets/shop/assets/js/templatemo.js}"></script>
+        <script th:src="@{/assets/shop/assets/js/custom.js}"></script>
+    <script th:src="@{/assets/js/lightboxed.js}"></script>
+        <!-- End Script -->
+</body>
+
+</html>
