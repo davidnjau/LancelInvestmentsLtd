@@ -10,21 +10,11 @@ import com.centafrique.lancelinvestment.user_webiste.service_data.service_impl.B
 import com.centafrique.lancelinvestment.user_webiste.service_data.service_impl.CartItemsServiceImpl;
 import com.centafrique.lancelinvestment.user_webiste.service_data.service_impl.ProductsServiceImpl;
 import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.net.URI;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -106,7 +96,7 @@ public class WebController {
         }
 
 
-        ModelAndView modelAndView = new ModelAndView("/blog");
+        ModelAndView modelAndView = new ModelAndView("blog");
         modelAndView.addObject("blogDetailsList", blogDetailsListData);
         modelAndView.addObject("pageNo", pageNo);
         modelAndView.addObject("pageSize", pageSize);
@@ -125,7 +115,7 @@ public class WebController {
         String featuredImage = blogDetails.getFeaturedImage();
 
 
-        ModelAndView modelAndView = new ModelAndView("/blog_details");
+        ModelAndView modelAndView = new ModelAndView("blog_details");
         modelAndView.addObject("id", id);
         modelAndView.addObject("blogTitle", blogTitle);
         modelAndView.addObject("blogDesc", blogDesc);
@@ -204,7 +194,7 @@ public class WebController {
                     .map(Role::getName)
                     .collect(Collectors.toList());
             if (!roleList.isEmpty() && roleList.contains("ROLE_ADMIN")){
-                return "/admin/dashboard";
+                return "dashboard";
             }else {
                 return "/login";
             }
@@ -215,18 +205,19 @@ public class WebController {
 
 
 
+
     }
 
     @RequestMapping(value = "/api/v1/admin/home", method = RequestMethod.GET)
     public ModelAndView getAdminDashBoard(@RequestHeader("Authorization") String Authorization) {
-        return new ModelAndView("/admin/dashboard");
+        return new ModelAndView("dashboard");
     }
 
     @RequestMapping(value = "admin/view-product-details/{productId}", method = RequestMethod.GET)
     public ModelAndView getAdminProductDetail(@PathVariable("productId") String productId){
 
         ProductDetails productDetails = productsServiceImpl.getProductDetails(productId);
-        ModelAndView modelAndView = new ModelAndView("admin/view_product_details");
+        ModelAndView modelAndView = new ModelAndView("view_product_details");
         if (productDetails != null){
 
             modelAndView.addObject("productDetails", productDetails);
@@ -245,12 +236,12 @@ public class WebController {
 
     @RequestMapping(value = "/admin/add-product")
     public String addProducts(){
-        return "admin/add_products";
+        return "add_products";
     }
 
     @RequestMapping(value = "/admin/add_blog")
     public String addBlog(){
-        return "admin/add_blog";
+        return "add_blog";
     }
 
 
@@ -308,7 +299,7 @@ public class WebController {
         }
 
 
-        ModelAndView modelAndView = new ModelAndView("admin/view_products");
+        ModelAndView modelAndView = new ModelAndView("view_products");
         modelAndView.addObject("productDetailsList", productDisplayList);
         modelAndView.addObject("pageNo", pageNo);
         modelAndView.addObject("pageSize", pageSize);
@@ -317,7 +308,7 @@ public class WebController {
     }
     @RequestMapping(value = "/admin/view-orders")
     public String viewAdminOrders(){
-        return "admin/view_orders";
+        return "view_orders";
     }
     @RequestMapping(value = "/admin/view-users")
     public ModelAndView viewAdminUsers(){
@@ -328,7 +319,7 @@ public class WebController {
         String sortDescription = "DESC";
 
         List<UserDetails> userList = userDetailsServiceImpl.getPaginatedUsers(pageNo, pageSize, sortField, sortDescription);
-        ModelAndView modelAndView = new ModelAndView("admin/view_users");
+        ModelAndView modelAndView = new ModelAndView("view_users");
         modelAndView.addObject("userList", userList);
 
         return modelAndView;
@@ -336,7 +327,7 @@ public class WebController {
 
     @RequestMapping(value = "/admin/view-order-details")
     public String viewAdminOrderDetails(){
-        return "admin/view_orders_details";
+        return "view_orders_details";
     }
 
     @RequestMapping(value = "/admin/view_blogs/{blogId}")
@@ -350,7 +341,7 @@ public class WebController {
         String featuredImage = blogDetails.getFeaturedImage();
 
 
-        ModelAndView modelAndView = new ModelAndView("/admin/view_blog_details");
+        ModelAndView modelAndView = new ModelAndView("view_blog_details");
         modelAndView.addObject("id", id);
         modelAndView.addObject("blogTitle", blogTitle);
         modelAndView.addObject("blogDesc", blogDesc);
@@ -371,7 +362,7 @@ public class WebController {
 
         List<Blogs> blogDetailsList = dynamicFullRes.getResults();
 
-        ModelAndView modelAndView = new ModelAndView("/admin/view_blogs");
+        ModelAndView modelAndView = new ModelAndView("view_blogs");
         modelAndView.addObject("blogDetailsList", blogDetailsList);
         modelAndView.addObject("pageNo", pageNo);
         modelAndView.addObject("pageSize", pageSize);

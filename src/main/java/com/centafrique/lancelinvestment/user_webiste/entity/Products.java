@@ -33,7 +33,7 @@ public class Products {
 
     private String productName;
 
-    @Column(name = "productDescription", length = 512)
+    @Column(columnDefinition="text", length=10485760)
     private String productDescription;
 
     @Column(name = "ingredients", length = 512)

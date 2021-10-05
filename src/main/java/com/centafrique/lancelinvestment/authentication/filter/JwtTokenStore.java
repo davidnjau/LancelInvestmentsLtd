@@ -46,7 +46,7 @@ public class JwtTokenStore {
                 .claim("roles", userDetails.getAuthorities().stream()
                         .map(GrantedAuthority::getAuthority)
                         .collect(Collectors.toList()))
-                .expirationTime( getDate( 5, ChronoUnit.HOURS ) )
+                .expirationTime( getDate( 10, ChronoUnit.HOURS ) )
                 .build();
 
         // 6
