@@ -2,8 +2,7 @@ package com.centafrique.lancelinvestment;
 
 import com.centafrique.lancelinvestment.authentication.entity.Role;
 import com.centafrique.lancelinvestment.authentication.service_class.impl.UserDetailsServiceImpl;
-import com.centafrique.lancelinvestment.storage.FileStoragePojo;
-import com.centafrique.lancelinvestment.user_webiste.service_data.service_impl.FilesStorageServiceImpl;
+import com.centafrique.lancelinvestment.storage.FileStorageService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -16,13 +15,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 @SpringBootApplication
 @RequiredArgsConstructor
-@EnableConfigurationProperties({
-        FileStoragePojo.class
-})
 public class LancelInvestmentApplication implements CommandLineRunner{
 
     @Autowired
-    private FilesStorageServiceImpl storageService;
+    private FileStorageService fileStorageService;
 
     public static void main(String[] args) {
         SpringApplication.run(LancelInvestmentApplication.class, args);
@@ -43,7 +39,7 @@ public class LancelInvestmentApplication implements CommandLineRunner{
 
     @Override
     public void run(String... args) throws Exception {
-        storageService.deleteAll();
-        storageService.init();
+        fileStorageService.deleteAll();
+        fileStorageService.init();
     }
 }

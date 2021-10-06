@@ -1,6 +1,5 @@
-package com.centafrique.lancelinvestment.user_webiste.exception;
+package com.centafrique.lancelinvestment.storage;
 
-import com.centafrique.lancelinvestment.user_webiste.helper_class.UploadResponseMessage;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -11,8 +10,8 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 @ControllerAdvice
 public class FileUploadExceptionAdvice extends ResponseEntityExceptionHandler {
 
-  @ExceptionHandler(MaxUploadSizeExceededException.class)
-  public ResponseEntity<UploadResponseMessage> handleMaxSizeException(MaxUploadSizeExceededException exc) {
-    return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new UploadResponseMessage("File too large!"));
-  }
+    @ExceptionHandler(MaxUploadSizeExceededException.class)
+    public ResponseEntity<ResponseMessage> handleMaxSizeException(MaxUploadSizeExceededException exc) {
+        return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new ResponseMessage("File too large!"));
+    }
 }

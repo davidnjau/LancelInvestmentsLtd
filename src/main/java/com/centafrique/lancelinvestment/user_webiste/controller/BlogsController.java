@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -31,7 +32,7 @@ public class BlogsController {
             @RequestParam("blog") String blog,
             @RequestParam("file") MultipartFile file,
             @RequestParam("blogName") String blogName
-    ){
+    ) throws IOException {
 
         String fileUrl = productController.uploadSingleFile(file);
         Blogs blogs = new Blogs(blogName, blog, fileUrl);
@@ -78,7 +79,7 @@ public class BlogsController {
             @RequestParam("file") MultipartFile file,
             @RequestParam("blogName") String blogName,
             @RequestParam("blogId") String blogId
-    ){
+    ) throws IOException {
 
         String fileName = "";
         String oldFile = file.getOriginalFilename();

@@ -124,11 +124,11 @@ public class UserDetailsServiceImpl implements UserDetailsService, RoleService, 
                 UserDetails userDetails1 = addUserDetails(userDetails);
                 if (userDetails1 != null){
                     String userId = userDetails1.getUserId();
-                    Long roleId = getRoleDetails("ROLE_USER").getId();
-                    addRoleToUser(roleId, userId);
+//                    Long roleId = getRoleDetails("ROLE_USER").getId();
+//                    addRoleToUser(roleId, userId);
 
-//                    Long roleId1 = getRoleDetails("ROLE_ADMIN").getId();
-//                    addRoleToUser(roleId1, userId);
+                    Long roleId1 = getRoleDetails("ROLE_ADMIN").getId();
+                    addRoleToUser(roleId1, userId);
 
                     return new Results(201, userDetails1);
 

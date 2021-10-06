@@ -3,14 +3,11 @@ package com.centafrique.lancelinvestment.user_webiste.controller;
 import com.centafrique.lancelinvestment.authentication.entity.UserDetails;
 import com.centafrique.lancelinvestment.authentication.service_class.impl.UserDetailsServiceImpl;
 import com.centafrique.lancelinvestment.storage.FileStorageService;
-import com.centafrique.lancelinvestment.user_webiste.entity.FileData;
-import com.centafrique.lancelinvestment.user_webiste.entity.ProductImages;
-import com.centafrique.lancelinvestment.user_webiste.entity.ProductSizes;
-import com.centafrique.lancelinvestment.user_webiste.entity.Products;
+import com.centafrique.lancelinvestment.user_webiste.entity.*;
 import com.centafrique.lancelinvestment.user_webiste.helper_class.*;
 import com.centafrique.lancelinvestment.user_webiste.service_data.service_impl.CartItemsServiceImpl;
+import com.centafrique.lancelinvestment.user_webiste.service_data.service_impl.FileStorageServiceImpl;
 import com.centafrique.lancelinvestment.user_webiste.service_data.service_impl.FileUploadUtil;
-import com.centafrique.lancelinvestment.user_webiste.service_data.service_impl.FilesStorageServiceImpl;
 import com.centafrique.lancelinvestment.user_webiste.service_data.service_impl.ProductsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
@@ -48,10 +45,11 @@ public class ProductController {
     private UserDetailsServiceImpl userDetailsServiceImpl;
 
     @Autowired
-    private FilesStorageServiceImpl filesStorageServiceImpl;
+    private FileStorageServiceImpl fileStorageServiceImpl;
 
-    @Autowired
-    private FileStorageService fileStorageService;
+
+//    @Autowired
+//    private FileStorageService fileStorageService;
 
     @RequestMapping(value = "/api/v1/products/add_products_details", method = RequestMethod.POST)
     public ResponseEntity addProductDetails(@RequestBody ProductDataDetails productDataDetails){
@@ -119,40 +117,40 @@ public class ProductController {
 
     }
 
-    public String uploadSingleFile(MultipartFile file) {
+    public String uploadSingleFile(MultipartFile file) throws IOException {
 
-        String fileName = fileStorageService.storeFile(file);
-        String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
-                .path("/download-file/")
-                .path(fileName)
+        FileDB fileDB = fileStorageServiceImpl.store(file);
+        String fileId = fileDB.getId();
+
+        //        fileStorageService.save(file);
+//        String fileName = file.getOriginalFilename();
+//        String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
+//                .path("/download-file/")
+//                .path(fileName)
+//                .toUriString();
+
+        return ServletUriComponentsBuilder
+                .fromCurrentContextPath()
+                .path("/files/")
+                .path(fileId)
                 .toUriString();
-
-        return fileDownloadUri;
     }
 
 
-    @GetMapping("/download-file/{fileName:.+}")
-    public ResponseEntity<Resource> downloadFile(@PathVariable String fileName, HttpServletRequest request) {
-        // Load file as Resource
-        Resource resource = fileStorageService.loadFileAsResource(fileName);
+//    @GetMapping("/download-file/{fileName:.+}")
+//    public ResponseEntity<Resource> downloadFile(@PathVariable String fileName) {
+//        Resource file = fileStorageService.load(fileName);
+//        return ResponseEntity.ok()
+//                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + file.getFilename() + "\"").body(file);
+//    }
 
-        // Try to determine file's content type
-        String contentType = null;
-        try {
-            contentType = request.getServletContext().getMimeType(resource.getFile().getAbsolutePath());
-        } catch (IOException ex) {
-            System.out.print("Could not determine file type.");
-        }
-
-        // Fallback to the default content type if type could not be determined
-        if(contentType == null) {
-            contentType = "application/octet-stream";
-        }
+    @GetMapping("/files/{id}")
+    public ResponseEntity<byte[]> getFile(@PathVariable String id) {
+        FileDB fileDB = fileStorageServiceImpl.getFile(id);
 
         return ResponseEntity.ok()
-                .contentType(MediaType.parseMediaType(contentType))
-                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + resource.getFilename() + "\"")
-                .body(resource);
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + fileDB.getName() + "\"")
+                .body(fileDB.getData());
     }
 
 
