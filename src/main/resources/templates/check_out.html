@@ -79,17 +79,55 @@
                                 <hr>
                                 <div class="d-block my-3">
                                     <div class="custom-control custom-radio">
-                                        <input id="credit" name="paymentMethod" type="radio" class="custom-control-input" checked required>
-                                        <label class="custom-control-label" for="credit">Mpesa Express</label>
+                                        <input id="mpesaExpress" name="paymentMethod" type="radio" class="custom-control-input" checked required>
+                                        <label class="custom-control-label" for="mpesaExpress">Mpesa Express</label>
                                     </div>
                                     <div class="custom-control custom-radio">
-                                        <input id="debit" name="paymentMethod" type="radio" class="custom-control-input" required>
-                                        <label class="custom-control-label" for="debit">Manual Payment</label>
+                                        <input id="manualPayment" name="paymentMethod" type="radio" class="custom-control-input" required>
+                                        <label class="custom-control-label" for="manualPayment">Manual Payment</label>
                                     </div>
 
                                 </div>
-                                <div>
-                                    <input type="number" id="pNumber" name="firstname" placeholder="2547*****">
+                                <div >
+
+                                    <div id="manualPaymentInstruction" class="row ml-1">
+                                        <p>
+                                            Please Enter your Phone number.
+                                        </p>
+                                        <input class="col-4" type="number" id="mobileNumber" name="phoneNumber" placeholder="2547*****">
+                                    </div>
+                                    <div id="mpesaExpressInstruction" style="display: none" class="row ml-1 mt-2">
+
+                                        <p>
+                                            Manual Payment Instructions
+                                        </p>
+                                        <p>
+                                            NB: Please ensure that the exact phone number used to pay is indicated below.
+                                        </p>
+
+                                        <ul>
+                                            <li>
+                                                On the M-PESA Menu Go to "Lipa Na M-PESA" and Select Buy Goods
+                                            </li>
+                                            <li>
+                                                Enter 5580869 as the Till Number
+                                            </li>
+                                            <li>
+                                                Enter the Amount
+                                            </li>
+                                            <li>
+                                                Enter your PIN and confirm that all details are correct and press OK.
+                                            </li>
+                                            <li>
+                                                Enter the M-PESA receipt code you receive below and the phone numbe used to pay and press confirm.
+                                            </li>
+
+                                        </ul>
+
+
+
+                                        <input class="col-4" type="text" id="mpesaCode" name="mpesaCode" placeholder="M-PESA CODE">
+                                    </div>
 
                                 </div>
 
@@ -185,6 +223,21 @@
 <div data-th-include="footer.html"></div>
 
 <script>
+
+    const manualPayment = document.getElementById("manualPayment");
+    const mpesaExpress = document.getElementById("mpesaExpress");
+
+    const mpesaExpressInstruction = document.getElementById("mpesaExpressInstruction");
+
+    manualPayment.onclick = function () {
+        mpesaExpressInstruction.style.display = "block";
+    };
+    mpesaExpress.onclick = function () {
+        mpesaExpressInstruction.style.display = "none";
+    };
+
+
+
 
     var firstName = window.localStorage.getItem('firstName');
     var lastName = window.localStorage.getItem('lastName');
